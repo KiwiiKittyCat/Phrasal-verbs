@@ -3,416 +3,435 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cute Phrasal Verb Notebook 🎀</title>
-    <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Mali:wght@400;600;700&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    
+    <title>My Purple Phrasal Notebook ☂️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;600;700&family=Kodchasan:wght@400;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #fff5f7; /* ชมพูอ่อน */
-            --primary: #ff8fab;   /* ชมพูเข้ม */
-            --secondary: #8ecae6; /* ฟ้า */
-            --accent: #ffb703;    /* เหลือง */
-            --text: #5d576b;
-            --white: #ffffff;
-            --card-shadow: 0 8px 20px rgba(255, 143, 171, 0.2);
+            --bg-color: #f3e5f5; /* ม่วงอ่อนพาสเทล */
+            --card-bg: #ffffff;
+            --primary: #ce93d8; /* ม่วงสดใส */
+            --secondary: #ab47bc; /* ม่วงเข้ม */
+            --highlight: #fff9c4; /* เหลืองนวลสำหรับไฮไลต์ */
+            --text: #4a148c; /* ม่วงเข้มเกือบดำ */
+            --border-radius: 20px;
         }
 
         body {
             font-family: 'Mali', cursive;
             background-color: var(--bg-color);
-            background-image: radial-gradient(#ffd6e0 15%, transparent 16%);
+            background-image: radial-gradient(#e1bee7 15%, transparent 16%);
             background-size: 25px 25px;
             color: var(--text);
             margin: 0;
-            padding-bottom: 50px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 80px; /* เว้นที่ให้ Toolbar */
         }
 
-        /* --- Sticky Toolbar --- */
+        /* --- STICKY TOOLBAR (เครื่องมือแต่งข้อความ) --- */
         .toolbar {
-            position: sticky;
-            top: 0;
-            background: rgba(255, 255, 255, 0.95);
-            padding: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            box-shadow: 0 5px 15px rgba(106, 27, 154, 0.2);
             display: flex;
-            justify-content: center;
-            gap: 10px;
+            gap: 15px;
             z-index: 1000;
-            backdrop-filter: blur(5px);
-            border-bottom: 2px dashed var(--primary);
+            border: 3px solid var(--primary);
         }
 
         .tool-btn {
-            border: 2px solid var(--secondary);
-            background: white;
-            color: var(--text);
-            padding: 5px 15px;
-            border-radius: 15px;
+            background: none;
+            border: none;
             cursor: pointer;
-            font-family: 'Mali', cursive;
-            font-weight: bold;
-            transition: 0.2s;
-        }
-
-        .tool-btn:hover { background: var(--secondary); color: white; transform: translateY(-2px); }
-        .tool-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
-
-        /* Color Picker Wrapper */
-        .color-wrapper { position: relative; display: inline-block; }
-        #colorPicker { opacity: 0; position: absolute; left: 0; top: 0; width: 100%; height: 100%; cursor: pointer; }
-
-        .container { max-width: 800px; margin: 20px auto; padding: 0 15px; }
-
-        h1 { text-align: center; color: var(--primary); font-size: 2.5rem; text-shadow: 2px 2px 0 white; }
-
-        /* --- Form Sections --- */
-        .card {
-            background: var(--white);
-            border-radius: 25px;
-            padding: 30px;
-            margin-bottom: 25px;
-            border: 4px solid white;
-            box-shadow: var(--card-shadow);
-        }
-
-        .section-header {
-            background: var(--primary);
-            color: white;
-            padding: 8px 20px;
-            border-radius: 20px;
-            display: inline-block;
-            margin-bottom: 15px;
             font-size: 1.2rem;
+            padding: 5px 10px;
+            border-radius: 10px;
+            transition: 0.2s;
+            font-family: 'Kodchasan', sans-serif;
             font-weight: bold;
-            box-shadow: 3px 3px 0 var(--secondary);
         }
 
-        .label {
+        .tool-btn:hover { background-color: #f3e5f5; transform: scale(1.1); }
+        .btn-bold { color: #000; font-weight: 900; }
+        .btn-color { color: #d81b60; }
+        .btn-highlight { background-color: var(--highlight); color: #555; }
+
+        /* --- Main Layout --- */
+        .container {
+            max-width: 800px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--secondary);
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 0 #fff;
+        }
+
+        /* --- Form Card --- */
+        .form-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: 0 10px 20px rgba(142, 36, 170, 0.15);
+            border: 4px solid #fff;
+        }
+
+        /* --- Section Divider --- */
+        .section-header {
+            background-color: var(--primary);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 15px;
+            margin: 30px 0 15px 0;
+            font-size: 1.2rem;
+            text-align: center;
+            box-shadow: 0 4px 0 #9c27b0;
+        }
+
+        .sub-group {
+            border: 2px dashed #e1bee7;
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 15px;
+            background: #fffcf4;
+        }
+
+        /* --- Inputs --- */
+        .input-row {
+            margin-bottom: 12px;
+        }
+
+        label {
+            font-weight: bold;
+            color: var(--secondary);
             font-size: 0.9rem;
-            color: var(--text);
-            font-weight: bold;
-            margin-top: 10px;
             display: block;
+            margin-bottom: 4px;
         }
 
-        /* --- Editable Div (Rich Text Input) --- */
+        /* Content Editable Div (แทน Input เพื่อให้ใส่สีได้) */
         .rich-input {
             width: 100%;
             min-height: 40px;
             padding: 10px;
-            border: 2px dashed #ccc;
-            border-radius: 15px;
-            background: #fffdf9;
-            margin-bottom: 10px;
-            outline: none;
-            transition: 0.3s;
-            box-sizing: border-box;
+            border: 2px solid #e1bee7;
+            border-radius: 12px;
+            background: #fff;
             font-family: 'Kodchasan', sans-serif;
+            outline: none;
+            box-sizing: border-box;
+            transition: 0.3s;
+            color: #333;
         }
         .rich-input:focus {
             border-color: var(--secondary);
-            background: white;
-            box-shadow: 0 0 10px rgba(142, 202, 230, 0.2);
+            background: #fdfbff;
+            box-shadow: 0 0 8px rgba(171, 71, 188, 0.2);
         }
 
         /* GIF Input */
         .gif-input {
-            border-color: var(--accent);
-            background: #fffcf0;
+            width: 100%;
+            padding: 8px;
+            border: 2px dashed var(--secondary);
+            border-radius: 10px;
+            background: #fce4ec;
+            color: var(--text);
+            font-family: 'Kodchasan', sans-serif;
+            margin-bottom: 20px;
         }
 
-        /* --- Buttons --- */
+        /* --- Save Button --- */
         .btn-save {
-            background: var(--primary);
+            background: var(--secondary);
             color: white;
             border: none;
-            width: 100%;
             padding: 15px;
             border-radius: 50px;
-            font-size: 1.5rem;
             font-family: 'Mali', cursive;
+            font-size: 1.5rem;
+            font-weight: bold;
             cursor: pointer;
-            box-shadow: 0 5px 0 #ef7a96;
+            width: 100%;
+            margin-top: 30px;
+            box-shadow: 0 6px 0 #7b1fa2;
             transition: 0.2s;
         }
+        .btn-save:hover { filter: brightness(1.1); transform: translateY(-2px); }
         .btn-save:active { transform: translateY(4px); box-shadow: none; }
 
         /* --- Result Card --- */
-        #output { margin-top: 40px; }
-        .result-card {
-            background: white;
-            padding: 40px;
+        .saved-card {
+            background: #fff;
             border-radius: 20px;
+            padding: 30px;
+            margin-top: 40px;
             border: 5px solid var(--secondary);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
             position: relative;
         }
-        
-        .result-gif-container {
-            width: 100%;
+
+        .main-word {
             text-align: center;
-            margin: 15px 0;
+            font-size: 2rem;
+            color: var(--secondary);
+            margin-bottom: 20px;
+            border-bottom: 2px dashed #ddd;
+            padding-bottom: 10px;
+        }
+
+        .result-section {
+            background: #f8f0fb;
             border-radius: 15px;
-            overflow: hidden;
-        }
-        .result-gif-container img, .result-gif-container iframe {
-            max-width: 100%;
-            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-left: 5px solid var(--primary);
         }
 
-        .res-row { margin-bottom: 8px; line-height: 1.6; }
-        .res-label { font-weight: bold; color: var(--primary); margin-right: 5px; }
-
-        .block-divider {
-            border-top: 2px dashed #eee;
-            margin: 20px 0;
+        .result-row {
+            margin-bottom: 8px;
+            display: flex;
+            align-items: baseline;
+        }
+        .result-label {
+            font-weight: bold;
+            color: var(--secondary);
+            min-width: 80px;
+            margin-right: 10px;
+        }
+        .result-content {
+            flex: 1;
+            font-family: 'Kodchasan', sans-serif;
         }
         
-        /* Grid for Footer */
-        .footer-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
+        .embedded-gif {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 15px;
+            margin: 10px auto;
+            display: block;
+            border: 3px solid white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
-        @media(max-width: 600px) { .footer-grid { grid-template-columns: 1fr; } }
 
     </style>
 </head>
 <body>
 
     <div class="toolbar">
-        <button class="tool-btn" onclick="format('bold')"><i class="fas fa-bold"></i> หนา</button>
-        <button class="tool-btn" onclick="format('hiliteColor', '#fff700')"><i class="fas fa-highlighter"></i> ไฮไลต์</button>
-        <div class="color-wrapper tool-btn">
-            <i class="fas fa-palette"></i> สี
-            <input type="color" id="colorPicker" onchange="format('foreColor', this.value)">
-        </div>
+        <span style="font-size: 0.9rem; align-self: center; color:#aaa;">ลากดำที่ข้อความแล้วกด 👉</span>
+        <button class="tool-btn btn-bold" onclick="formatDoc('bold')" title="ตัวหนา">B</button>
+        <button class="tool-btn btn-color" onclick="formatDoc('foreColor', '#d81b60')" title="เปลี่ยนสีชมพูเข้ม">A</button>
+        <button class="tool-btn btn-color" onclick="formatDoc('foreColor', '#7b1fa2')" title="เปลี่ยนสีม่วง">A</button>
+        <button class="tool-btn btn-highlight" onclick="formatDoc('hiliteColor', '#fff9c4')" title="ไฮไลต์">H</button>
     </div>
 
     <div class="container">
-        <h1>🐰 My Note 🥕</h1>
+        <h1>☂️ My Vocabulary Notebook ☂️</h1>
 
-        <div class="card">
-            <div class="label">คำศัพท์ + อิโมจิ</div>
-            <div class="rich-input" id="mainWord" contenteditable="true" style="font-size: 1.5rem; text-align: center;"></div>
-        </div>
-
-        <div class="card">
-            <div class="section-header">Section 1</div>
+        <div class="form-card">
             
-            <div class="label">🎥 ไฟล์ GIF (ลิงก์ หรือ Embed Code)</div>
-            <textarea id="gif1" class="rich-input gif-input" placeholder="วาง URL หรือ <iframe> ที่นี่..."></textarea>
-
-            <div class="label">🏗️ STRUCTURE 1</div>
-            <div class="rich-input" id="str1" contenteditable="true"></div>
-
-            <div class="label">🇬🇧 EN 1</div>
-            <div class="rich-input" id="en1" contenteditable="true"></div>
-
-            <div class="footer-grid">
-                <div><div class="label">🇹🇭 TH 1.1</div><div class="rich-input" id="th1_1" contenteditable="true"></div></div>
-                <div><div class="label">🇹🇭 TH 1.2</div><div class="rich-input" id="th1_2" contenteditable="true"></div></div>
-                <div><div class="label">🇹🇭 TH 1.3</div><div class="rich-input" id="th1_3" contenteditable="true"></div></div>
-                <div><div class="label">🇹🇭 TH 1.4</div><div class="rich-input" id="th1_4" contenteditable="true"></div></div>
-                <div><div class="label">🇹🇭 TH 1.5</div><div class="rich-input" id="th1_5" contenteditable="true"></div></div>
+            <div class="input-row">
+                <label style="text-align: center; font-size: 1.2rem;">คำศัพท์ / Phrasal Verb (พร้อมอิโมจิ)</label>
+                <div class="rich-input" id="main-word" contenteditable="true" style="font-size: 1.5rem; text-align: center;"></div>
             </div>
 
-            <div class="block-divider"></div>
-            <div class="label">💬 EX.1</div><div class="rich-input" id="ex1_1" contenteditable="true"></div>
-            <div class="label">💬 EX.2</div><div class="rich-input" id="ex1_2" contenteditable="true"></div>
-            <div class="label">💬 EX.3</div><div class="rich-input" id="ex1_3" contenteditable="true"></div>
-            <div class="label">💬 EX.4</div><div class="rich-input" id="ex1_4" contenteditable="true"></div>
-        </div>
-
-        <div class="card">
-            <div class="section-header" style="background: var(--secondary);">Section 2</div>
+            <div class="section-header">💜 Section 1</div>
+            <input type="text" class="gif-input" id="gif1" placeholder="🔗 แปะลิงก์ไฟล์ GIF ที่นี่ (ถ้ามี)">
             
-            <div class="label">🎥 ไฟล์ GIF 2</div>
-            <textarea id="gif2" class="rich-input gif-input"></textarea>
-
-            <div class="label">🏗️ STRUCTURE 2</div>
-            <div class="rich-input" id="str2" contenteditable="true"></div>
-            <div class="label">🇬🇧 EN 2</div>
-            <div class="rich-input" id="en2" contenteditable="true"></div>
-
-            <div class="footer-grid">
-                <div><div class="label">🇹🇭 TH 2.1</div><div class="rich-input" id="th2_1" contenteditable="true"></div></div>
-                <div><div class="label">🇹🇭 TH 2.2</div><div class="rich-input" id="th2_2" contenteditable="true"></div></div>
-                <div><div class="label">🇹🇭 TH 2.3</div><div class="rich-input" id="th2_3" contenteditable="true"></div></div>
-                <div><div class="label">🇹🇭 TH 2.4</div><div class="rich-input" id="th2_4" contenteditable="true"></div></div>
-                <div><div class="label">🇹🇭 TH 2.5</div><div class="rich-input" id="th2_5" contenteditable="true"></div></div>
+            <div class="sub-group">
+                <div class="input-row"><label>STRUCTURE 1</label><div class="rich-input" id="s1-struct" contenteditable="true"></div></div>
+                <div class="input-row"><label>EN 1</label><div class="rich-input" id="s1-en" contenteditable="true"></div></div>
+                <div class="input-row"><label>TH 1.1</label><div class="rich-input" id="s1-th1" contenteditable="true"></div></div>
+                <div class="input-row"><label>TH 1.2</label><div class="rich-input" id="s1-th2" contenteditable="true"></div></div>
+                <div class="input-row"><label>TH 1.3</label><div class="rich-input" id="s1-th3" contenteditable="true"></div></div>
+                <div class="input-row"><label>TH 1.4</label><div class="rich-input" id="s1-th4" contenteditable="true"></div></div>
+                <div class="input-row"><label>TH 1.5</label><div class="rich-input" id="s1-th5" contenteditable="true"></div></div>
+            </div>
+            <div class="sub-group">
+                <div class="input-row"><label>EX.1</label><div class="rich-input" id="s1-ex1" contenteditable="true"></div></div>
+                <div class="input-row"><label>EX.2</label><div class="rich-input" id="s1-ex2" contenteditable="true"></div></div>
+                <div class="input-row"><label>EX.3</label><div class="rich-input" id="s1-ex3" contenteditable="true"></div></div>
+                <div class="input-row"><label>EX.4</label><div class="rich-input" id="s1-ex4" contenteditable="true"></div></div>
             </div>
 
-            <div class="block-divider"></div>
-            <div class="label">💬 EX.1</div><div class="rich-input" id="ex2_1" contenteditable="true"></div>
-            <div class="label">💬 EX.2</div><div class="rich-input" id="ex2_2" contenteditable="true"></div>
-            <div class="label">💬 EX.3</div><div class="rich-input" id="ex2_3" contenteditable="true"></div>
-            <div class="label">💬 EX.4</div><div class="rich-input" id="ex2_4" contenteditable="true"></div>
-        </div>
-
-        <div class="card">
-            <div class="section-header" style="background: var(--accent);">Section 3</div>
+            <div class="section-header">💜 Section 2</div>
+            <input type="text" class="gif-input" id="gif2" placeholder="🔗 แปะลิงก์ไฟล์ GIF ที่นี่">
             
-            <div class="label">🎥 ไฟล์ GIF 3</div>
-            <textarea id="gif3" class="rich-input gif-input"></textarea>
-
-            <div class="label">🏗️ STRUCTURE 3</div>
-            <div class="rich-input" id="str3" contenteditable="true"></div>
-            
-            <div class="label">🧠 MEANING 3</div>
-            <div class="rich-input" id="mean3" contenteditable="true"></div>
-
-            <div class="label">🇬🇧 EN 3</div>
-            <div class="rich-input" id="en3" contenteditable="true"></div>
-
-            <div class="footer-grid">
-                <div><div class="label">🇹🇭 TH 3.1</div><div class="rich-input" id="th3_1" contenteditable="true"></div></div>
-                <div><div class="label">🇹🇭 TH 3.2</div><div class="rich-input" id="th3_2" contenteditable="true"></div></div>
-                <div><div class="label">🇹🇭 TH 3.3</div><div class="rich-input" id="th3_3" contenteditable="true"></div></div>
-                <div><div class="label">🇹🇭 TH 3.4</div><div class="rich-input" id="th3_4" contenteditable="true"></div></div>
-                <div><div class="label">🇹🇭 TH 3.5</div><div class="rich-input" id="th3_5" contenteditable="true"></div></div>
+            <div class="sub-group">
+                <div class="input-row"><label>STRUCTURE 2</label><div class="rich-input" id="s2-struct" contenteditable="true"></div></div>
+                <div class="input-row"><label>EN 2</label><div class="rich-input" id="s2-en" contenteditable="true"></div></div>
+                <div class="input-row"><label>TH 2.1</label><div class="rich-input" id="s2-th1" contenteditable="true"></div></div>
+                <div class="input-row"><label>TH 2.2</label><div class="rich-input" id="s2-th2" contenteditable="true"></div></div>
+                <div class="input-row"><label>TH 2.3</label><div class="rich-input" id="s2-th3" contenteditable="true"></div></div>
+                <div class="input-row"><label>TH 2.4</label><div class="rich-input" id="s2-th4" contenteditable="true"></div></div>
+                <div class="input-row"><label>TH 2.5</label><div class="rich-input" id="s2-th5" contenteditable="true"></div></div>
+            </div>
+            <div class="sub-group">
+                <div class="input-row"><label>EX.1</label><div class="rich-input" id="s2-ex1" contenteditable="true"></div></div>
+                <div class="input-row"><label>EX.2</label><div class="rich-input" id="s2-ex2" contenteditable="true"></div></div>
+                <div class="input-row"><label>EX.3</label><div class="rich-input" id="s2-ex3" contenteditable="true"></div></div>
+                <div class="input-row"><label>EX.4</label><div class="rich-input" id="s2-ex4" contenteditable="true"></div></div>
             </div>
 
-            <div class="block-divider"></div>
-            <div class="label">💬 EX.1</div><div class="rich-input" id="ex3_1" contenteditable="true"></div>
-            <div class="label">💬 EX.2</div><div class="rich-input" id="ex3_2" contenteditable="true"></div>
-            <div class="label">💬 EX.3</div><div class="rich-input" id="ex3_3" contenteditable="true"></div>
-            <div class="label">💬 EX.4</div><div class="rich-input" id="ex3_4" contenteditable="true"></div>
-        </div>
-
-        <div class="card">
-            <div class="section-header" style="background: #9d8189;">Section 4</div>
+            <div class="section-header">💜 Section 3</div>
+            <input type="text" class="gif-input" id="gif3" placeholder="🔗 แปะลิงก์ไฟล์ GIF ที่นี่">
             
-            <div class="label">🎥 ไฟล์ GIF 4</div>
-            <textarea id="gif4" class="rich-input gif-input"></textarea>
-
-            <div class="label">🏗️ STRUCTURE 4</div>
-            <div class="rich-input" id="str4" contenteditable="true"></div>
-            <div class="label">🇬🇧 EN 4</div>
-            <div class="rich-input" id="en4" contenteditable="true"></div>
-
-            <div class="footer-grid">
-                <div><div class="label">🇹🇭 TH 4.1</div><div class="rich-input" id="th4_1" contenteditable="true"></div></div>
-                <div><div class="label">🇹🇭 TH 4.2</div><div class="rich-input" id="th4_2" contenteditable="true"></div></div>
-                <div><div class="label">🇹🇭 TH 4.3</div><div class="rich-input" id="th4_3" contenteditable="true"></div></div>
-                <div><div class="label">🇹🇭 TH 4.4</div><div class="rich-input" id="th4_4" contenteditable="true"></div></div>
-                <div><div class="label">🇹🇭 TH 4.5</div><div class="rich-input" id="th4_5" contenteditable="true"></div></div>
+            <div class="sub-group">
+                <div class="input-row"><label>STRUCTURE 3</label><div class="rich-input" id="s3-struct" contenteditable="true"></div></div>
+                <div class="input-row"><label>MEANING 3</label><div class="rich-input" id="s3-mean" contenteditable="true"></div></div>
+                <div class="input-row"><label>EN 3</label><div class="rich-input" id="s3-en" contenteditable="true"></div></div>
+                <div class="input-row"><label>TH 3.1</label><div class="rich-input" id="s3-th1" contenteditable="true"></div></div>
+                <div class="input-row"><label>TH 3.2</label><div class="rich-input" id="s3-th2" contenteditable="true"></div></div>
+                <div class="input-row"><label>TH 3.3</label><div class="rich-input" id="s3-th3" contenteditable="true"></div></div>
+                <div class="input-row"><label>TH 3.4</label><div class="rich-input" id="s3-th4" contenteditable="true"></div></div>
+                <div class="input-row"><label>TH 3.5</label><div class="rich-input" id="s3-th5" contenteditable="true"></div></div>
             </div>
+            <div class="sub-group">
+                <div class="input-row"><label>EX.1</label><div class="rich-input" id="s3-ex1" contenteditable="true"></div></div>
+                <div class="input-row"><label>EX.2</label><div class="rich-input" id="s3-ex2" contenteditable="true"></div></div>
+                <div class="input-row"><label>EX.3</label><div class="rich-input" id="s3-ex3" contenteditable="true"></div></div>
+                <div class="input-row"><label>EX.4</label><div class="rich-input" id="s3-ex4" contenteditable="true"></div></div>
+            </div>
+
+            <div class="section-header">💜 Section 4</div>
+            <input type="text" class="gif-input" id="gif4" placeholder="🔗 แปะลิงก์ไฟล์ GIF ที่นี่">
+            
+            <div class="sub-group">
+                <div class="input-row"><label>STRUCTURE 4</label><div class="rich-input" id="s4-struct" contenteditable="true"></div></div>
+                <div class="input-row"><label>EN 4</label><div class="rich-input" id="s4-en" contenteditable="true"></div></div>
+                <div class="input-row"><label>TH 4.1</label><div class="rich-input" id="s4-th1" contenteditable="true"></div></div>
+                <div class="input-row"><label>TH 4.2</label><div class="rich-input" id="s4-th2" contenteditable="true"></div></div>
+                <div class="input-row"><label>TH 4.3</label><div class="rich-input" id="s4-th3" contenteditable="true"></div></div>
+                <div class="input-row"><label>TH 4.4</label><div class="rich-input" id="s4-th4" contenteditable="true"></div></div>
+                <div class="input-row"><label>TH 4.5</label><div class="rich-input" id="s4-th5" contenteditable="true"></div></div>
+            </div>
+
+            <div class="sub-group" style="background: #fdf5e6;">
+                <div class="input-row"><label>GRAMMAR</label><div class="rich-input" id="grammar" contenteditable="true"></div></div>
+                <div class="input-row"><label>DERIVE WORDS</label><div class="rich-input" id="derive" contenteditable="true"></div></div>
+                <div class="input-row"><label>WORD FAMILY</label><div class="rich-input" id="family" contenteditable="true"></div></div>
+                <div class="input-row"><label>SYN/OP</label><div class="rich-input" id="synop" contenteditable="true"></div></div>
+                <div class="input-row"><label>SYNTAX</label><div class="rich-input" id="syntax" contenteditable="true"></div></div>
+                <div class="input-row"><label>FYI</label><div class="rich-input" id="fyi" contenteditable="true"></div></div>
+            </div>
+
+            <button class="btn-save" onclick="saveData()">✨ บันทึกข้อมูล (Save) ✨</button>
         </div>
 
-        <div class="card">
-            <div class="section-header" style="background: #5d576b;">Extra Info</div>
-            <div class="footer-grid">
-                <div><div class="label">📘 GRAMMAR</div><div class="rich-input" id="grammar" contenteditable="true"></div></div>
-                <div><div class="label">🌱 DERIVE WORDS</div><div class="rich-input" id="derive" contenteditable="true"></div></div>
-                <div><div class="label">👨‍👩‍👧 WORD FAMILY</div><div class="rich-input" id="family" contenteditable="true"></div></div>
-                <div><div class="label">🔄 SYN/OP</div><div class="rich-input" id="synop" contenteditable="true"></div></div>
-            </div>
-            <div class="label">🧩 SYNTAX</div><div class="rich-input" id="syntax" contenteditable="true"></div>
-            <div class="label">💡 FYI</div><div class="rich-input" id="fyi" contenteditable="true"></div>
-        </div>
-
-        <button class="btn-save" onclick="generateCard()">✨ บันทึก (Generate Card) ✨</button>
-
-        <div id="output"></div>
+        <div id="output-area"></div>
     </div>
 
     <script>
-        // ฟังก์ชันจัดการ Rich Text
-        function format(command, value) {
-            document.execCommand(command, false, value);
+        // ฟังก์ชันจัดรูปแบบข้อความ (Bold, Color, Highlight)
+        function formatDoc(cmd, value) {
+            document.execCommand(cmd, false, value);
         }
 
-        // ฟังก์ชันดึงค่า HTML
-        function getHTML(id) {
+        // ฟังก์ชันดึงค่าจาก contenteditable div
+        function getVal(id) {
             return document.getElementById(id).innerHTML;
         }
 
-        // ฟังก์ชันจัดการ GIF
-        function renderGIF(id) {
-            const raw = document.getElementById(id).value.trim();
-            if(!raw) return '';
-            
-            if (raw.startsWith('<iframe') || raw.startsWith('<img')) {
-                return `<div class="result-gif-container">${raw}</div>`;
-            } else if (raw.startsWith('http')) {
-                return `<div class="result-gif-container"><img src="${raw}"></div>`;
+        // ฟังก์ชันดึงค่าจาก input ธรรมดา (GIF)
+        function getLink(id) {
+            return document.getElementById(id).value;
+        }
+
+        function createRow(label, content) {
+            // ตรวจสอบว่า content มีเนื้อหาจริงๆ หรือไม่ (ไม่ใช่แค่ <br>)
+            if (content && content !== '<br>' && content.trim() !== '') {
+                return `<div class="result-row"><div class="result-label">${label}</div><div class="result-content">${content}</div></div>`;
             }
             return '';
         }
 
-        // ฟังก์ชันสร้าง Row
-        function createRow(label, htmlContent, colorClass) {
-            if (!htmlContent || htmlContent === '<br>') return '';
-            return `<div class="res-row"><span class="res-label" style="color:${colorClass}">${label}:</span> ${htmlContent}</div>`;
+        function createGif(url) {
+            if (url && url.trim() !== '') {
+                return `<img src="${url}" class="embedded-gif">`;
+            }
+            return '';
         }
 
-        function generateCard() {
-            const mainWord = getHTML('mainWord');
-            if(!mainWord) { alert('กรุณาใส่คำศัพท์ก่อนนะคะ 🥺'); return; }
+        function saveData() {
+            const mainWord = getVal('main-word');
+            
+            if(!mainWord || mainWord.trim() === '') {
+                alert('อย่าลืมใส่คำศัพท์หลักก่อนนะคะ 💜');
+                return;
+            }
 
             let html = `
-                <div class="result-card">
-                    <h2 style="text-align:center; color:var(--primary); font-size:2rem; margin-bottom:20px; border-bottom:2px dashed #eee; padding-bottom:15px;">
-                        ${mainWord}
-                    </h2>
+                <div class="saved-card">
+                    <div class="main-word">${mainWord}</div>
             `;
 
             // --- Section 1 ---
-            html += renderGIF('gif1');
-            html += `<h3 style="background:#ffeaef; padding:5px 10px; border-radius:10px; display:inline-block;">1️⃣ Section 1</h3>`;
-            html += createRow('STRUCTURE', getHTML('str1'), '#ff8fab');
-            html += createRow('EN', getHTML('en1'), '#5d576b');
-            // Loop TH
-            for(let i=1; i<=5; i++) html += createRow(`TH 1.${i}`, getHTML(`th1_${i}`), '#8ecae6');
-            // Loop EX
-            html += `<div style="margin-top:10px; padding-left:10px; border-left:3px solid #eee;">`;
-            for(let i=1; i<=4; i++) html += createRow(`EX.${i}`, getHTML(`ex1_${i}`), '#999');
-            html += `</div><hr style="border:1px dashed #eee; margin:15px 0;">`;
+            let s1 = '';
+            s1 += createGif(getLink('gif1'));
+            s1 += createRow('STRUCTURE 1', getVal('s1-struct'));
+            s1 += createRow('EN 1', getVal('s1-en'));
+            for(let i=1; i<=5; i++) s1 += createRow(`TH 1.${i}`, getVal(`s1-th${i}`));
+            for(let i=1; i<=4; i++) s1 += createRow(`EX.${i}`, getVal(`s1-ex${i}`));
+            
+            if(s1) html += `<div class="result-section">${s1}</div>`;
 
             // --- Section 2 ---
-            html += renderGIF('gif2');
-            html += `<h3 style="background:#e0f4ff; padding:5px 10px; border-radius:10px; display:inline-block;">2️⃣ Section 2</h3>`;
-            html += createRow('STRUCTURE', getHTML('str2'), '#ff8fab');
-            html += createRow('EN', getHTML('en2'), '#5d576b');
-            for(let i=1; i<=5; i++) html += createRow(`TH 2.${i}`, getHTML(`th2_${i}`), '#8ecae6');
-            html += `<div style="margin-top:10px; padding-left:10px; border-left:3px solid #eee;">`;
-            for(let i=1; i<=4; i++) html += createRow(`EX.${i}`, getHTML(`ex2_${i}`), '#999');
-            html += `</div><hr style="border:1px dashed #eee; margin:15px 0;">`;
+            let s2 = '';
+            s2 += createGif(getLink('gif2'));
+            s2 += createRow('STRUCTURE 2', getVal('s2-struct'));
+            s2 += createRow('EN 2', getVal('s2-en'));
+            for(let i=1; i<=5; i++) s2 += createRow(`TH 2.${i}`, getVal(`s2-th${i}`));
+            for(let i=1; i<=4; i++) s2 += createRow(`EX.${i}`, getVal(`s2-ex${i}`));
+
+            if(s2) html += `<div class="result-section">${s2}</div>`;
 
             // --- Section 3 ---
-            html += renderGIF('gif3');
-            html += `<h3 style="background:#fff4cc; padding:5px 10px; border-radius:10px; display:inline-block;">3️⃣ Section 3</h3>`;
-            html += createRow('STRUCTURE', getHTML('str3'), '#ff8fab');
-            html += createRow('MEANING', getHTML('mean3'), '#ffb703');
-            html += createRow('EN', getHTML('en3'), '#5d576b');
-            for(let i=1; i<=5; i++) html += createRow(`TH 3.${i}`, getHTML(`th3_${i}`), '#8ecae6');
-            html += `<div style="margin-top:10px; padding-left:10px; border-left:3px solid #eee;">`;
-            for(let i=1; i<=4; i++) html += createRow(`EX.${i}`, getHTML(`ex3_${i}`), '#999');
-            html += `</div><hr style="border:1px dashed #eee; margin:15px 0;">`;
+            let s3 = '';
+            s3 += createGif(getLink('gif3'));
+            s3 += createRow('STRUCTURE 3', getVal('s3-struct'));
+            s3 += createRow('MEANING 3', getVal('s3-mean'));
+            s3 += createRow('EN 3', getVal('s3-en'));
+            for(let i=1; i<=5; i++) s3 += createRow(`TH 3.${i}`, getVal(`s3-th${i}`));
+            for(let i=1; i<=4; i++) s3 += createRow(`EX.${i}`, getVal(`s3-ex${i}`));
+
+            if(s3) html += `<div class="result-section">${s3}</div>`;
 
             // --- Section 4 ---
-            html += renderGIF('gif4');
-            html += `<h3 style="background:#e8e8e8; padding:5px 10px; border-radius:10px; display:inline-block;">4️⃣ Section 4</h3>`;
-            html += createRow('STRUCTURE', getHTML('str4'), '#ff8fab');
-            html += createRow('EN', getHTML('en4'), '#5d576b');
-            for(let i=1; i<=5; i++) html += createRow(`TH 4.${i}`, getHTML(`th4_${i}`), '#8ecae6');
-            html += `<hr style="border:2px solid var(--primary); margin:20px 0;">`;
-
-            // --- Footer ---
-            html += `<div style="background:#f9f9f9; padding:15px; border-radius:15px;">`;
-            html += createRow('GRAMMAR', getHTML('grammar'), '#ff8fab');
-            html += createRow('DERIVE', getHTML('derive'), '#ff8fab');
-            html += createRow('FAMILY', getHTML('family'), '#ff8fab');
-            html += createRow('SYN/OP', getHTML('synop'), '#ff8fab');
-            html += createRow('SYNTAX', getHTML('syntax'), '#ff8fab');
-            html += createRow('💡 FYI', getHTML('fyi'), '#ffb703');
-            html += `</div></div>`;
-
-            document.getElementById('output').innerHTML = html;
+            let s4 = '';
+            s4 += createGif(getLink('gif4'));
+            s4 += createRow('STRUCTURE 4', getVal('s4-struct'));
+            s4 += createRow('EN 4', getVal('s4-en'));
+            for(let i=1; i<=5; i++) s4 += createRow(`TH 4.${i}`, getVal(`s4-th${i}`));
             
-            // Scroll to result
-            document.getElementById('output').scrollIntoView({ behavior: 'smooth' });
+            // Extra fields
+            s4 += createRow('GRAMMAR', getVal('grammar'));
+            s4 += createRow('DERIVE', getVal('derive'));
+            s4 += createRow('FAMILY', getVal('family'));
+            s4 += createRow('SYN/OP', getVal('synop'));
+            s4 += createRow('SYNTAX', getVal('syntax'));
+            s4 += createRow('FYI', getVal('fyi'));
+
+            if(s4) html += `<div class="result-section">${s4}</div>`;
+
+            html += `</div>`; // Close card
+
+            // Add to output
+            const output = document.getElementById('output-area');
+            output.innerHTML = html + output.innerHTML;
+
+            // Scroll to new card
+            output.scrollIntoView({ behavior: 'smooth' });
         }
     </script>
 </body>
