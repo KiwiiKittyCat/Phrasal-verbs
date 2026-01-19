@@ -7,12 +7,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;600;700&family=Kodchasan:wght@400;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #f3e5f5; /* ม่วงอ่อนพาสเทล */
+            --bg-color: #f3e5f5;
             --card-bg: #ffffff;
-            --primary: #ce93d8; /* ม่วงสดใส */
-            --secondary: #ab47bc; /* ม่วงเข้ม */
-            --highlight: #fff9c4; /* เหลืองนวลสำหรับไฮไลต์ */
-            --text: #4a148c; /* ม่วงเข้มเกือบดำ */
+            --primary: #ce93d8;
+            --secondary: #ab47bc;
+            --highlight: #fff9c4;
+            --text: #4a148c;
             --border-radius: 20px;
         }
 
@@ -27,10 +27,10 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding-top: 80px; /* เว้นที่ให้ Toolbar */
+            padding-top: 80px;
         }
 
-        /* --- STICKY TOOLBAR (เครื่องมือแต่งข้อความ) --- */
+        /* --- TOOLBAR --- */
         .toolbar {
             position: fixed;
             top: 20px;
@@ -63,7 +63,6 @@
         .btn-color { color: #d81b60; }
         .btn-highlight { background-color: var(--highlight); color: #555; }
 
-        /* --- Main Layout --- */
         .container {
             max-width: 800px;
             width: 100%;
@@ -77,7 +76,6 @@
             text-shadow: 2px 2px 0 #fff;
         }
 
-        /* --- Form Card --- */
         .form-card {
             background: var(--card-bg);
             border-radius: var(--border-radius);
@@ -86,7 +84,6 @@
             border: 4px solid #fff;
         }
 
-        /* --- Section Divider --- */
         .section-header {
             background-color: var(--primary);
             color: white;
@@ -106,10 +103,7 @@
             background: #fffcf4;
         }
 
-        /* --- Inputs --- */
-        .input-row {
-            margin-bottom: 12px;
-        }
+        .input-row { margin-bottom: 12px; }
 
         label {
             font-weight: bold;
@@ -119,7 +113,6 @@
             margin-bottom: 4px;
         }
 
-        /* Content Editable Div (แทน Input เพื่อให้ใส่สีได้) */
         .rich-input {
             width: 100%;
             min-height: 40px;
@@ -139,19 +132,20 @@
             box-shadow: 0 0 8px rgba(171, 71, 188, 0.2);
         }
 
-        /* GIF Input */
+        /* GIF Input Style */
         .gif-input {
             width: 100%;
-            padding: 8px;
-            border: 2px dashed var(--secondary);
+            padding: 12px;
+            border: 2px solid var(--secondary);
             border-radius: 10px;
-            background: #fce4ec;
+            background: #f3e5f5;
             color: var(--text);
             font-family: 'Kodchasan', sans-serif;
             margin-bottom: 20px;
+            box-sizing: border-box;
         }
+        .gif-input::placeholder { color: #8e24aa; opacity: 0.6; }
 
-        /* --- Save Button --- */
         .btn-save {
             background: var(--secondary);
             color: white;
@@ -168,7 +162,6 @@
             transition: 0.2s;
         }
         .btn-save:hover { filter: brightness(1.1); transform: translateY(-2px); }
-        .btn-save:active { transform: translateY(4px); box-shadow: none; }
 
         /* --- Result Card --- */
         .saved-card {
@@ -198,30 +191,30 @@
             border-left: 5px solid var(--primary);
         }
 
-        .result-row {
-            margin-bottom: 8px;
-            display: flex;
-            align-items: baseline;
-        }
-        .result-label {
-            font-weight: bold;
-            color: var(--secondary);
-            min-width: 80px;
-            margin-right: 10px;
-        }
-        .result-content {
-            flex: 1;
-            font-family: 'Kodchasan', sans-serif;
-        }
+        .result-row { margin-bottom: 8px; display: flex; align-items: baseline; }
+        .result-label { font-weight: bold; color: var(--secondary); min-width: 80px; margin-right: 10px; }
+        .result-content { flex: 1; font-family: 'Kodchasan', sans-serif; }
         
         .embedded-gif {
             width: 100%;
             max-width: 300px;
             border-radius: 15px;
-            margin: 10px auto;
+            margin: 15px auto;
             display: block;
             border: 3px solid white;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        /* Error Message for broken GIF */
+        .gif-error {
+            color: red;
+            background: #ffebee;
+            padding: 10px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 0.9rem;
+            border: 1px dashed red;
+            margin: 10px 0;
         }
 
     </style>
@@ -230,24 +223,23 @@
 
     <div class="toolbar">
         <span style="font-size: 0.9rem; align-self: center; color:#aaa;">ลากดำที่ข้อความแล้วกด 👉</span>
-        <button class="tool-btn btn-bold" onclick="formatDoc('bold')" title="ตัวหนา">B</button>
-        <button class="tool-btn btn-color" onclick="formatDoc('foreColor', '#d81b60')" title="เปลี่ยนสีชมพูเข้ม">A</button>
-        <button class="tool-btn btn-color" onclick="formatDoc('foreColor', '#7b1fa2')" title="เปลี่ยนสีม่วง">A</button>
-        <button class="tool-btn btn-highlight" onclick="formatDoc('hiliteColor', '#fff9c4')" title="ไฮไลต์">H</button>
+        <button class="tool-btn btn-bold" onclick="formatDoc('bold')">B</button>
+        <button class="tool-btn btn-color" onclick="formatDoc('foreColor', '#d81b60')" style="color:#d81b60">A</button>
+        <button class="tool-btn btn-color" onclick="formatDoc('foreColor', '#7b1fa2')" style="color:#7b1fa2">A</button>
+        <button class="tool-btn btn-highlight" onclick="formatDoc('hiliteColor', '#fff9c4')">H</button>
     </div>
 
     <div class="container">
         <h1>☂️ My Vocabulary Notebook ☂️</h1>
 
         <div class="form-card">
-            
             <div class="input-row">
                 <label style="text-align: center; font-size: 1.2rem;">คำศัพท์ / Phrasal Verb (พร้อมอิโมจิ)</label>
                 <div class="rich-input" id="main-word" contenteditable="true" style="font-size: 1.5rem; text-align: center;"></div>
             </div>
 
             <div class="section-header">💜 Section 1</div>
-            <input type="text" class="gif-input" id="gif1" placeholder="🔗 แปะลิงก์ไฟล์ GIF ที่นี่ (ถ้ามี)">
+            <input type="text" class="gif-input" id="gif1" placeholder="🔗 วางลิงก์ GIF ตรงนี้ (คลิกขวาที่รูป > Copy Image Address)">
             
             <div class="sub-group">
                 <div class="input-row"><label>STRUCTURE 1</label><div class="rich-input" id="s1-struct" contenteditable="true"></div></div>
@@ -266,7 +258,7 @@
             </div>
 
             <div class="section-header">💜 Section 2</div>
-            <input type="text" class="gif-input" id="gif2" placeholder="🔗 แปะลิงก์ไฟล์ GIF ที่นี่">
+            <input type="text" class="gif-input" id="gif2" placeholder="🔗 วางลิงก์ GIF ตรงนี้">
             
             <div class="sub-group">
                 <div class="input-row"><label>STRUCTURE 2</label><div class="rich-input" id="s2-struct" contenteditable="true"></div></div>
@@ -285,7 +277,7 @@
             </div>
 
             <div class="section-header">💜 Section 3</div>
-            <input type="text" class="gif-input" id="gif3" placeholder="🔗 แปะลิงก์ไฟล์ GIF ที่นี่">
+            <input type="text" class="gif-input" id="gif3" placeholder="🔗 วางลิงก์ GIF ตรงนี้">
             
             <div class="sub-group">
                 <div class="input-row"><label>STRUCTURE 3</label><div class="rich-input" id="s3-struct" contenteditable="true"></div></div>
@@ -305,7 +297,7 @@
             </div>
 
             <div class="section-header">💜 Section 4</div>
-            <input type="text" class="gif-input" id="gif4" placeholder="🔗 แปะลิงก์ไฟล์ GIF ที่นี่">
+            <input type="text" class="gif-input" id="gif4" placeholder="🔗 วางลิงก์ GIF ตรงนี้">
             
             <div class="sub-group">
                 <div class="input-row"><label>STRUCTURE 4</label><div class="rich-input" id="s4-struct" contenteditable="true"></div></div>
@@ -333,23 +325,19 @@
     </div>
 
     <script>
-        // ฟังก์ชันจัดรูปแบบข้อความ (Bold, Color, Highlight)
         function formatDoc(cmd, value) {
             document.execCommand(cmd, false, value);
         }
 
-        // ฟังก์ชันดึงค่าจาก contenteditable div
         function getVal(id) {
             return document.getElementById(id).innerHTML;
         }
 
-        // ฟังก์ชันดึงค่าจาก input ธรรมดา (GIF)
         function getLink(id) {
             return document.getElementById(id).value;
         }
 
         function createRow(label, content) {
-            // ตรวจสอบว่า content มีเนื้อหาจริงๆ หรือไม่ (ไม่ใช่แค่ <br>)
             if (content && content !== '<br>' && content.trim() !== '') {
                 return `<div class="result-row"><div class="result-label">${label}</div><div class="result-content">${content}</div></div>`;
             }
@@ -358,7 +346,8 @@
 
         function createGif(url) {
             if (url && url.trim() !== '') {
-                return `<img src="${url}" class="embedded-gif">`;
+                // เพิ่ม onerror เพื่อเช็คว่ารูปลิงก์เสียหรือไม่
+                return `<img src="${url}" class="embedded-gif" onerror="this.outerHTML='<div class=\\'gif-error\\'>❌ รูปไม่ขึ้น! กรุณาใช้ Direct Link (ต้องลงท้ายด้วย .gif / .jpg / .png)</div>'">`;
             }
             return '';
         }
@@ -376,27 +365,25 @@
                     <div class="main-word">${mainWord}</div>
             `;
 
-            // --- Section 1 ---
+            // Section 1
             let s1 = '';
             s1 += createGif(getLink('gif1'));
             s1 += createRow('STRUCTURE 1', getVal('s1-struct'));
             s1 += createRow('EN 1', getVal('s1-en'));
             for(let i=1; i<=5; i++) s1 += createRow(`TH 1.${i}`, getVal(`s1-th${i}`));
             for(let i=1; i<=4; i++) s1 += createRow(`EX.${i}`, getVal(`s1-ex${i}`));
-            
             if(s1) html += `<div class="result-section">${s1}</div>`;
 
-            // --- Section 2 ---
+            // Section 2
             let s2 = '';
             s2 += createGif(getLink('gif2'));
             s2 += createRow('STRUCTURE 2', getVal('s2-struct'));
             s2 += createRow('EN 2', getVal('s2-en'));
             for(let i=1; i<=5; i++) s2 += createRow(`TH 2.${i}`, getVal(`s2-th${i}`));
             for(let i=1; i<=4; i++) s2 += createRow(`EX.${i}`, getVal(`s2-ex${i}`));
-
             if(s2) html += `<div class="result-section">${s2}</div>`;
 
-            // --- Section 3 ---
+            // Section 3
             let s3 = '';
             s3 += createGif(getLink('gif3'));
             s3 += createRow('STRUCTURE 3', getVal('s3-struct'));
@@ -404,33 +391,28 @@
             s3 += createRow('EN 3', getVal('s3-en'));
             for(let i=1; i<=5; i++) s3 += createRow(`TH 3.${i}`, getVal(`s3-th${i}`));
             for(let i=1; i<=4; i++) s3 += createRow(`EX.${i}`, getVal(`s3-ex${i}`));
-
             if(s3) html += `<div class="result-section">${s3}</div>`;
 
-            // --- Section 4 ---
+            // Section 4
             let s4 = '';
             s4 += createGif(getLink('gif4'));
             s4 += createRow('STRUCTURE 4', getVal('s4-struct'));
             s4 += createRow('EN 4', getVal('s4-en'));
             for(let i=1; i<=5; i++) s4 += createRow(`TH 4.${i}`, getVal(`s4-th${i}`));
             
-            // Extra fields
+            // Extra
             s4 += createRow('GRAMMAR', getVal('grammar'));
-            s4 += createRow('DERIVE', getVal('derive'));
-            s4 += createRow('FAMILY', getVal('family'));
+            s4 += createRow('DERIVE WORDS', getVal('derive'));
+            s4 += createRow('WORD FAMILY', getVal('family'));
             s4 += createRow('SYN/OP', getVal('synop'));
             s4 += createRow('SYNTAX', getVal('syntax'));
             s4 += createRow('FYI', getVal('fyi'));
-
             if(s4) html += `<div class="result-section">${s4}</div>`;
 
-            html += `</div>`; // Close card
+            html += `</div>`;
 
-            // Add to output
             const output = document.getElementById('output-area');
             output.innerHTML = html + output.innerHTML;
-
-            // Scroll to new card
             output.scrollIntoView({ behavior: 'smooth' });
         }
     </script>
