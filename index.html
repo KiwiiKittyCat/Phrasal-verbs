@@ -27,10 +27,10 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding-top: 80px;
+            padding-top: 90px;
         }
 
-        /* --- TOOLBAR --- */
+        /* TOOLBAR */
         .toolbar {
             position: fixed;
             top: 20px;
@@ -57,16 +57,12 @@
             font-family: 'Kodchasan', sans-serif;
             font-weight: bold;
         }
-
         .tool-btn:hover { background-color: #f3e5f5; transform: scale(1.1); }
         .btn-bold { color: #000; font-weight: 900; }
         .btn-color { color: #d81b60; }
         .btn-highlight { background-color: var(--highlight); color: #555; }
 
-        .container {
-            max-width: 800px;
-            width: 100%;
-        }
+        .container { max-width: 800px; width: 100%; }
 
         h1 {
             text-align: center;
@@ -104,119 +100,86 @@
         }
 
         .input-row { margin-bottom: 12px; }
-
-        label {
-            font-weight: bold;
-            color: var(--secondary);
-            font-size: 0.9rem;
-            display: block;
-            margin-bottom: 4px;
-        }
+        label { font-weight: bold; color: var(--secondary); font-size: 0.9rem; display: block; margin-bottom: 4px; }
 
         .rich-input {
-            width: 100%;
-            min-height: 40px;
-            padding: 10px;
-            border: 2px solid #e1bee7;
-            border-radius: 12px;
-            background: #fff;
-            font-family: 'Kodchasan', sans-serif;
-            outline: none;
-            box-sizing: border-box;
-            transition: 0.3s;
-            color: #333;
+            width: 100%; min-height: 40px; padding: 10px;
+            border: 2px solid #e1bee7; border-radius: 12px;
+            background: #fff; font-family: 'Kodchasan', sans-serif;
+            outline: none; box-sizing: border-box; transition: 0.3s; color: #333;
         }
-        .rich-input:focus {
-            border-color: var(--secondary);
-            background: #fdfbff;
-            box-shadow: 0 0 8px rgba(171, 71, 188, 0.2);
+        .rich-input:focus { border-color: var(--secondary); background: #fdfbff; }
+
+        /* GIF Styling */
+        .gif-wrapper {
+            background: #fce4ec;
+            padding: 15px;
+            border-radius: 15px;
+            border: 2px dashed var(--secondary);
+            margin-bottom: 20px;
+            text-align: center;
         }
 
-        /* GIF Input Style */
         .gif-input {
             width: 100%;
-            padding: 12px;
-            border: 2px solid var(--secondary);
+            padding: 10px;
+            border: 1px solid #ddd;
             border-radius: 10px;
-            background: #f3e5f5;
-            color: var(--text);
             font-family: 'Kodchasan', sans-serif;
-            margin-bottom: 20px;
             box-sizing: border-box;
+            margin-bottom: 10px;
         }
-        .gif-input::placeholder { color: #8e24aa; opacity: 0.6; }
+
+        .preview-img {
+            max-width: 100%;
+            max-height: 200px;
+            border-radius: 10px;
+            display: none; /* ซ่อนไว้ก่อน */
+            margin: 0 auto;
+            border: 4px solid white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .error-msg {
+            color: #d32f2f;
+            font-size: 0.9rem;
+            display: none;
+            margin-top: 5px;
+            background: #ffcdd2;
+            padding: 5px;
+            border-radius: 5px;
+        }
 
         .btn-save {
-            background: var(--secondary);
-            color: white;
-            border: none;
-            padding: 15px;
-            border-radius: 50px;
-            font-family: 'Mali', cursive;
-            font-size: 1.5rem;
-            font-weight: bold;
-            cursor: pointer;
-            width: 100%;
-            margin-top: 30px;
-            box-shadow: 0 6px 0 #7b1fa2;
-            transition: 0.2s;
+            background: var(--secondary); color: white; border: none; padding: 15px;
+            border-radius: 50px; font-family: 'Mali', cursive; font-size: 1.5rem;
+            font-weight: bold; cursor: pointer; width: 100%; margin-top: 30px;
+            box-shadow: 0 6px 0 #7b1fa2; transition: 0.2s;
         }
         .btn-save:hover { filter: brightness(1.1); transform: translateY(-2px); }
 
-        /* --- Result Card --- */
+        /* Result Card */
         .saved-card {
-            background: #fff;
-            border-radius: 20px;
-            padding: 30px;
-            margin-top: 40px;
-            border: 5px solid var(--secondary);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            position: relative;
+            background: #fff; border-radius: 20px; padding: 30px; margin-top: 40px;
+            border: 5px solid var(--secondary); position: relative;
         }
-
         .main-word {
-            text-align: center;
-            font-size: 2rem;
-            color: var(--secondary);
-            margin-bottom: 20px;
-            border-bottom: 2px dashed #ddd;
-            padding-bottom: 10px;
+            text-align: center; font-size: 2rem; color: var(--secondary);
+            margin-bottom: 20px; border-bottom: 2px dashed #ddd; padding-bottom: 10px;
         }
-
         .result-section {
-            background: #f8f0fb;
-            border-radius: 15px;
-            padding: 15px;
-            margin-bottom: 20px;
-            border-left: 5px solid var(--primary);
+            background: #f8f0fb; border-radius: 15px; padding: 15px;
+            margin-bottom: 20px; border-left: 5px solid var(--primary);
         }
-
         .result-row { margin-bottom: 8px; display: flex; align-items: baseline; }
         .result-label { font-weight: bold; color: var(--secondary); min-width: 80px; margin-right: 10px; }
         .result-content { flex: 1; font-family: 'Kodchasan', sans-serif; }
         
-        .embedded-gif {
-            width: 100%;
-            max-width: 300px;
-            border-radius: 15px;
-            margin: 15px auto;
-            display: block;
-            border: 3px solid white;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        .final-gif {
+            display: block; width: 100%; max-width: 300px;
+            border-radius: 15px; margin: 10px auto;
+            border: 4px solid white; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
-
-        /* Error Message for broken GIF */
-        .gif-error {
-            color: red;
-            background: #ffebee;
-            padding: 10px;
-            border-radius: 10px;
-            text-align: center;
-            font-size: 0.9rem;
-            border: 1px dashed red;
-            margin: 10px 0;
-        }
-
     </style>
 </head>
 <body>
@@ -239,8 +202,13 @@
             </div>
 
             <div class="section-header">💜 Section 1</div>
-            <input type="text" class="gif-input" id="gif1" placeholder="🔗 วางลิงก์ GIF ตรงนี้ (คลิกขวาที่รูป > Copy Image Address)">
-            
+            <div class="gif-wrapper">
+                <label>🎞️ Embed GIF (วางลิงก์แล้วรอดูรูปขึ้น)</label>
+                <input type="text" class="gif-input" id="gif1" placeholder="วางลิงก์รูปภาพที่นี่ (คลิกขวา Copy Image Address)" oninput="previewGif('gif1', 'prev1', 'err1')">
+                <img id="prev1" class="preview-img" onerror="imgError('prev1', 'err1')">
+                <div id="err1" class="error-msg">❌ ลิงก์ไม่ถูกต้อง หรือรูปไม่ขึ้น ลองหาลิงก์ใหม่นะคะ</div>
+            </div>
+
             <div class="sub-group">
                 <div class="input-row"><label>STRUCTURE 1</label><div class="rich-input" id="s1-struct" contenteditable="true"></div></div>
                 <div class="input-row"><label>EN 1</label><div class="rich-input" id="s1-en" contenteditable="true"></div></div>
@@ -258,7 +226,12 @@
             </div>
 
             <div class="section-header">💜 Section 2</div>
-            <input type="text" class="gif-input" id="gif2" placeholder="🔗 วางลิงก์ GIF ตรงนี้">
+            <div class="gif-wrapper">
+                <label>🎞️ Embed GIF</label>
+                <input type="text" class="gif-input" id="gif2" placeholder="วางลิงก์รูปภาพที่นี่" oninput="previewGif('gif2', 'prev2', 'err2')">
+                <img id="prev2" class="preview-img" onerror="imgError('prev2', 'err2')">
+                <div id="err2" class="error-msg">❌ ลิงก์ไม่ถูกต้อง</div>
+            </div>
             
             <div class="sub-group">
                 <div class="input-row"><label>STRUCTURE 2</label><div class="rich-input" id="s2-struct" contenteditable="true"></div></div>
@@ -277,7 +250,12 @@
             </div>
 
             <div class="section-header">💜 Section 3</div>
-            <input type="text" class="gif-input" id="gif3" placeholder="🔗 วางลิงก์ GIF ตรงนี้">
+            <div class="gif-wrapper">
+                <label>🎞️ Embed GIF</label>
+                <input type="text" class="gif-input" id="gif3" placeholder="วางลิงก์รูปภาพที่นี่" oninput="previewGif('gif3', 'prev3', 'err3')">
+                <img id="prev3" class="preview-img" onerror="imgError('prev3', 'err3')">
+                <div id="err3" class="error-msg">❌ ลิงก์ไม่ถูกต้อง</div>
+            </div>
             
             <div class="sub-group">
                 <div class="input-row"><label>STRUCTURE 3</label><div class="rich-input" id="s3-struct" contenteditable="true"></div></div>
@@ -297,7 +275,12 @@
             </div>
 
             <div class="section-header">💜 Section 4</div>
-            <input type="text" class="gif-input" id="gif4" placeholder="🔗 วางลิงก์ GIF ตรงนี้">
+            <div class="gif-wrapper">
+                <label>🎞️ Embed GIF</label>
+                <input type="text" class="gif-input" id="gif4" placeholder="วางลิงก์รูปภาพที่นี่" oninput="previewGif('gif4', 'prev4', 'err4')">
+                <img id="prev4" class="preview-img" onerror="imgError('prev4', 'err4')">
+                <div id="err4" class="error-msg">❌ ลิงก์ไม่ถูกต้อง</div>
+            </div>
             
             <div class="sub-group">
                 <div class="input-row"><label>STRUCTURE 4</label><div class="rich-input" id="s4-struct" contenteditable="true"></div></div>
@@ -325,16 +308,40 @@
     </div>
 
     <script>
+        // ฟังก์ชันตกแต่งข้อความ
         function formatDoc(cmd, value) {
             document.execCommand(cmd, false, value);
         }
 
-        function getVal(id) {
-            return document.getElementById(id).innerHTML;
+        // ฟังก์ชันแสดงตัวอย่าง GIF (Preview)
+        function previewGif(inputId, imgId, errId) {
+            const url = document.getElementById(inputId).value.trim();
+            const img = document.getElementById(imgId);
+            const err = document.getElementById(errId);
+
+            // รีเซ็ตสถานะ
+            img.style.display = 'none';
+            err.style.display = 'none';
+
+            if (url) {
+                img.src = url;
+                img.style.display = 'block'; // ลองแสดงรูป
+            }
         }
 
-        function getLink(id) {
-            return document.getElementById(id).value;
+        // ถ้าโหลดรูปไม่สำเร็จ (Error) ให้แสดงข้อความแจ้งเตือน
+        function imgError(imgId, errId) {
+            document.getElementById(imgId).style.display = 'none';
+            document.getElementById(errId).style.display = 'block';
+        }
+
+        // Helper Functions
+        function getVal(id) { return document.getElementById(id).innerHTML; }
+        function getLink(id) { 
+            // ตรวจสอบว่ารูป Preview โหลดผ่านหรือไม่ ถ้าผ่านให้ส่งค่า URL กลับไป
+            const errDiv = document.getElementById(id.replace('gif', 'err'));
+            if(errDiv.style.display === 'block') return ''; // ถ้า Error ไม่ต้องส่งค่า
+            return document.getElementById(id).value; 
         }
 
         function createRow(label, content) {
@@ -346,8 +353,7 @@
 
         function createGif(url) {
             if (url && url.trim() !== '') {
-                // เพิ่ม onerror เพื่อเช็คว่ารูปลิงก์เสียหรือไม่
-                return `<img src="${url}" class="embedded-gif" onerror="this.outerHTML='<div class=\\'gif-error\\'>❌ รูปไม่ขึ้น! กรุณาใช้ Direct Link (ต้องลงท้ายด้วย .gif / .jpg / .png)</div>'">`;
+                return `<img src="${url}" class="final-gif">`;
             }
             return '';
         }
