@@ -27,10 +27,52 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding-top: 90px;
+            padding-top: 100px; /* เผื่อที่ให้ Toolbar */
         }
 
-        /* TOOLBAR */
+        /* --- NAVIGATION TABS --- */
+        .nav-container {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .nav-btn {
+            background: white;
+            border: 3px solid var(--secondary);
+            color: var(--secondary);
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-family: 'Kodchasan', sans-serif;
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .nav-btn.active {
+            background: var(--secondary);
+            color: white;
+            box-shadow: 0 5px 15px rgba(171, 71, 188, 0.4);
+        }
+
+        /* --- PAGES --- */
+        .page-section {
+            width: 100%;
+            max-width: 800px;
+            display: none; /* ซ่อนไว้ก่อน */
+            animation: fadeIn 0.5s;
+        }
+        .page-section.active {
+            display: block; /* แสดงหน้าที่เลือก */
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- TOOLBAR --- */
         .toolbar {
             position: fixed;
             top: 20px;
@@ -58,20 +100,8 @@
             font-weight: bold;
         }
         .tool-btn:hover { background-color: #f3e5f5; transform: scale(1.1); }
-        .btn-bold { color: #000; font-weight: 900; }
-        .btn-color { color: #d81b60; }
-        .btn-highlight { background-color: var(--highlight); color: #555; }
 
-        .container { max-width: 800px; width: 100%; }
-
-        h1 {
-            text-align: center;
-            color: var(--secondary);
-            font-size: 2.2rem;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 0 #fff;
-        }
-
+        /* --- FORM STYLES --- */
         .form-card {
             background: var(--card-bg);
             border-radius: var(--border-radius);
@@ -110,58 +140,58 @@
         }
         .rich-input:focus { border-color: var(--secondary); background: #fdfbff; }
 
-        /* GIF Styling */
+        /* GIF Input */
         .gif-wrapper {
-            background: #fce4ec;
-            padding: 15px;
-            border-radius: 15px;
-            border: 2px dashed var(--secondary);
-            margin-bottom: 20px;
-            text-align: center;
+            background: #fce4ec; padding: 15px; border-radius: 15px;
+            border: 2px dashed var(--secondary); margin-bottom: 20px; text-align: center;
         }
-
         .gif-input {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            font-family: 'Kodchasan', sans-serif;
-            box-sizing: border-box;
-            margin-bottom: 10px;
+            width: 100%; padding: 10px; border: 1px solid #ddd;
+            border-radius: 10px; font-family: 'Kodchasan', sans-serif; margin-bottom: 10px;
         }
-
         .preview-img {
-            max-width: 100%;
-            max-height: 200px;
-            border-radius: 10px;
-            display: none; /* ซ่อนไว้ก่อน */
-            margin: 0 auto;
-            border: 4px solid white;
+            max-width: 100%; max-height: 200px; border-radius: 10px;
+            display: none; margin: 0 auto; border: 4px solid white;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
-
         .error-msg {
-            color: #d32f2f;
-            font-size: 0.9rem;
-            display: none;
-            margin-top: 5px;
-            background: #ffcdd2;
-            padding: 5px;
-            border-radius: 5px;
+            color: #d32f2f; font-size: 0.9rem; display: none;
+            margin-top: 5px; background: #ffcdd2; padding: 5px; border-radius: 5px;
         }
 
+        /* BUTTONS */
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
         .btn-save {
             background: var(--secondary); color: white; border: none; padding: 15px;
-            border-radius: 50px; font-family: 'Mali', cursive; font-size: 1.5rem;
-            font-weight: bold; cursor: pointer; width: 100%; margin-top: 30px;
+            border-radius: 50px; font-family: 'Mali', cursive; font-size: 1.2rem;
+            font-weight: bold; cursor: pointer; flex: 2;
             box-shadow: 0 6px 0 #7b1fa2; transition: 0.2s;
         }
-        .btn-save:hover { filter: brightness(1.1); transform: translateY(-2px); }
+        .btn-next {
+            background: #fff; border: 3px solid var(--secondary); color: var(--secondary);
+            padding: 15px; border-radius: 50px; font-family: 'Mali', cursive; font-size: 1.2rem;
+            font-weight: bold; cursor: pointer; flex: 1;
+            box-shadow: 0 6px 0 #ddd; transition: 0.2s;
+        }
+        .btn-save:hover, .btn-next:hover { transform: translateY(-2px); filter: brightness(1.1); }
+        .btn-save:active, .btn-next:active { transform: translateY(4px); box-shadow: none; }
 
-        /* Result Card */
+        /* --- GALLERY GRID --- */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+
+        /* Result Card (Reusable) */
         .saved-card {
-            background: #fff; border-radius: 20px; padding: 30px; margin-top: 40px;
+            background: #fff; border-radius: 20px; padding: 30px;
             border: 5px solid var(--secondary); position: relative;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
         }
         .main-word {
             text-align: center; font-size: 2rem; color: var(--secondary);
@@ -174,27 +204,47 @@
         .result-row { margin-bottom: 8px; display: flex; align-items: baseline; }
         .result-label { font-weight: bold; color: var(--secondary); min-width: 80px; margin-right: 10px; }
         .result-content { flex: 1; font-family: 'Kodchasan', sans-serif; }
-        
         .final-gif {
             display: block; width: 100%; max-width: 300px;
             border-radius: 15px; margin: 10px auto;
             border: 4px solid white; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
+
+        /* Delete Button */
+        .btn-delete {
+            position: absolute; top: 15px; right: 15px;
+            background: #ffcdd2; color: #c62828; border: none;
+            width: 35px; height: 35px; border-radius: 50%;
+            font-weight: bold; cursor: pointer; font-size: 1.2rem;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .btn-delete:hover { background: #ef9a9a; transform: scale(1.1); }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center; padding: 50px; color: #aaa; font-size: 1.2rem;
+        }
+
     </style>
 </head>
 <body>
 
     <div class="toolbar">
-        <span style="font-size: 0.9rem; align-self: center; color:#aaa;">ลากดำที่ข้อความแล้วกด 👉</span>
-        <button class="tool-btn btn-bold" onclick="formatDoc('bold')">B</button>
-        <button class="tool-btn btn-color" onclick="formatDoc('foreColor', '#d81b60')" style="color:#d81b60">A</button>
-        <button class="tool-btn btn-color" onclick="formatDoc('foreColor', '#7b1fa2')" style="color:#7b1fa2">A</button>
-        <button class="tool-btn btn-highlight" onclick="formatDoc('hiliteColor', '#fff9c4')">H</button>
+        <span style="font-size: 0.9rem; align-self: center; color:#aaa;">ลากดำแล้วกด 👉</span>
+        <button class="tool-btn" onclick="formatDoc('bold')" style="font-weight:900;">B</button>
+        <button class="tool-btn" onclick="formatDoc('foreColor', '#d81b60')" style="color:#d81b60">A</button>
+        <button class="tool-btn" onclick="formatDoc('foreColor', '#7b1fa2')" style="color:#7b1fa2">A</button>
+        <button class="tool-btn" onclick="formatDoc('hiliteColor', '#fff9c4')" style="background:#fff9c4">H</button>
     </div>
 
-    <div class="container">
-        <h1>☂️ My Vocabulary Notebook ☂️</h1>
+    <h1>☂️ My Vocabulary Database ☂️</h1>
 
+    <div class="nav-container">
+        <button class="nav-btn active" onclick="switchPage('add')">✏️ จดคำศัพท์ใหม่</button>
+        <button class="nav-btn" onclick="switchPage('gallery')">📚 คลังคำศัพท์ (Gallery)</button>
+    </div>
+
+    <div id="add-page" class="page-section active">
         <div class="form-card">
             <div class="input-row">
                 <label style="text-align: center; font-size: 1.2rem;">คำศัพท์ / Phrasal Verb (พร้อมอิโมจิ)</label>
@@ -203,12 +253,12 @@
 
             <div class="section-header">💜 Section 1</div>
             <div class="gif-wrapper">
-                <label>🎞️ Embed GIF (วางลิงก์แล้วรอดูรูปขึ้น)</label>
-                <input type="text" class="gif-input" id="gif1" placeholder="วางลิงก์รูปภาพที่นี่ (คลิกขวา Copy Image Address)" oninput="previewGif('gif1', 'prev1', 'err1')">
+                <label>🎞️ Embed GIF</label>
+                <input type="text" class="gif-input" id="gif1" placeholder="วางลิงก์รูปภาพที่นี่" oninput="previewGif('gif1', 'prev1', 'err1')">
                 <img id="prev1" class="preview-img" onerror="imgError('prev1', 'err1')">
-                <div id="err1" class="error-msg">❌ ลิงก์ไม่ถูกต้อง หรือรูปไม่ขึ้น ลองหาลิงก์ใหม่นะคะ</div>
+                <div id="err1" class="error-msg">❌ ลิงก์ไม่ถูกต้อง</div>
             </div>
-
+            
             <div class="sub-group">
                 <div class="input-row"><label>STRUCTURE 1</label><div class="rich-input" id="s1-struct" contenteditable="true"></div></div>
                 <div class="input-row"><label>EN 1</label><div class="rich-input" id="s1-en" contenteditable="true"></div></div>
@@ -301,126 +351,185 @@
                 <div class="input-row"><label>FYI</label><div class="rich-input" id="fyi" contenteditable="true"></div></div>
             </div>
 
-            <button class="btn-save" onclick="saveData()">✨ บันทึกข้อมูล (Save) ✨</button>
+            <div class="action-buttons">
+                <button class="btn-save" onclick="saveData()">💾 บันทึก (Save)</button>
+                <button class="btn-next" onclick="resetForm()">✨ คำต่อไป (Next)</button>
+            </div>
         </div>
+    </div>
 
-        <div id="output-area"></div>
+    <div id="gallery-page" class="page-section">
+        <div class="gallery-grid" id="gallery-container">
+            </div>
     </div>
 
     <script>
-        // ฟังก์ชันตกแต่งข้อความ
-        function formatDoc(cmd, value) {
-            document.execCommand(cmd, false, value);
+        // --- 1. SETUP & UTILS ---
+        let vocabList = JSON.parse(localStorage.getItem('myVocabDB')) || [];
+
+        function formatDoc(cmd, value) { document.execCommand(cmd, false, value); }
+        function getVal(id) { return document.getElementById(id).innerHTML; }
+        function getLink(id) { 
+            const errDiv = document.getElementById(id.replace('gif', 'err'));
+            if(errDiv.style.display === 'block') return ''; 
+            return document.getElementById(id).value; 
         }
 
-        // ฟังก์ชันแสดงตัวอย่าง GIF (Preview)
+        // --- 2. PREVIEW GIF ---
         function previewGif(inputId, imgId, errId) {
             const url = document.getElementById(inputId).value.trim();
             const img = document.getElementById(imgId);
             const err = document.getElementById(errId);
-
-            // รีเซ็ตสถานะ
-            img.style.display = 'none';
-            err.style.display = 'none';
-
-            if (url) {
-                img.src = url;
-                img.style.display = 'block'; // ลองแสดงรูป
-            }
+            img.style.display = 'none'; err.style.display = 'none';
+            if (url) { img.src = url; img.style.display = 'block'; }
         }
-
-        // ถ้าโหลดรูปไม่สำเร็จ (Error) ให้แสดงข้อความแจ้งเตือน
         function imgError(imgId, errId) {
             document.getElementById(imgId).style.display = 'none';
             document.getElementById(errId).style.display = 'block';
         }
 
-        // Helper Functions
-        function getVal(id) { return document.getElementById(id).innerHTML; }
-        function getLink(id) { 
-            // ตรวจสอบว่ารูป Preview โหลดผ่านหรือไม่ ถ้าผ่านให้ส่งค่า URL กลับไป
-            const errDiv = document.getElementById(id.replace('gif', 'err'));
-            if(errDiv.style.display === 'block') return ''; // ถ้า Error ไม่ต้องส่งค่า
-            return document.getElementById(id).value; 
+        // --- 3. NAVIGATION ---
+        function switchPage(page) {
+            // Update Buttons
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+            if(page === 'add') document.querySelector('.nav-btn:nth-child(1)').classList.add('active');
+            else document.querySelector('.nav-btn:nth-child(2)').classList.add('active');
+
+            // Update Views
+            document.querySelectorAll('.page-section').forEach(sec => sec.classList.remove('active'));
+            document.getElementById(page + '-page').classList.add('active');
+
+            if(page === 'gallery') renderGallery();
+        }
+
+        // --- 4. SAVE DATA ---
+        function saveData() {
+            const mainWord = getVal('main-word');
+            if(!mainWord || mainWord.trim() === '') { alert('อย่าลืมใส่คำศัพท์หลักก่อนนะคะ 💜'); return; }
+
+            // Collect all data into an object
+            const entry = {
+                id: Date.now(), // Unique ID
+                mainWord: mainWord,
+                s1: collectSectionData(1),
+                s2: collectSectionData(2),
+                s3: collectSectionData(3),
+                s4: collectSectionData(4),
+                extras: {
+                    grammar: getVal('grammar'), derive: getVal('derive'), family: getVal('family'),
+                    synop: getVal('synop'), syntax: getVal('syntax'), fyi: getVal('fyi')
+                }
+            };
+
+            // Save to LocalStorage
+            vocabList.unshift(entry); // Add to top
+            localStorage.setItem('myVocabDB', JSON.stringify(vocabList));
+            
+            alert('บันทึกเรียบร้อย! 💜 ไปดูที่ Gallery ได้เลย');
+            switchPage('gallery');
+        }
+
+        function collectSectionData(num) {
+            const data = { gif: getLink('gif'+num) };
+            // Collect fields dynamically
+            data.struct = getVal(`s${num}-struct`);
+            if(num === 3) data.mean = getVal(`s${num}-mean`); // Special case for sec 3
+            data.en = getVal(`s${num}-en`);
+            data.th = [];
+            for(let i=1; i<=5; i++) data.th.push(getVal(`s${num}-th${i}`));
+            data.ex = [];
+            // Section 4 doesn't have examples in your template, check
+            if(num < 4) {
+                 for(let i=1; i<=4; i++) data.ex.push(getVal(`s${num}-ex${i}`));
+            }
+            return data;
+        }
+
+        // --- 5. RENDER GALLERY ---
+        function renderGallery() {
+            const container = document.getElementById('gallery-container');
+            container.innerHTML = '';
+
+            if(vocabList.length === 0) {
+                container.innerHTML = '<div class="empty-state">ยังไม่มีข้อมูลค่ะ เริ่มจดคำแรกกันเถอะ! ✨</div>';
+                return;
+            }
+
+            vocabList.forEach(item => {
+                let html = `<div class="saved-card">
+                    <button class="btn-delete" onclick="deleteItem(${item.id})">🗑️</button>
+                    <div class="main-word">${item.mainWord}</div>`;
+
+                // Render Sections
+                html += renderSectionHTML(1, item.s1);
+                html += renderSectionHTML(2, item.s2);
+                html += renderSectionHTML(3, item.s3);
+                
+                // Section 4 + Extras
+                let s4Html = '';
+                s4Html += createGif(item.s4.gif);
+                s4Html += createRow('STRUCTURE 4', item.s4.struct);
+                s4Html += createRow('EN 4', item.s4.en);
+                item.s4.th.forEach((val, i) => s4Html += createRow(`TH 4.${i+1}`, val));
+                
+                // Add Extras to Section 4 block
+                s4Html += createRow('GRAMMAR', item.extras.grammar);
+                s4Html += createRow('DERIVE WORDS', item.extras.derive);
+                s4Html += createRow('WORD FAMILY', item.extras.family);
+                s4Html += createRow('SYN/OP', item.extras.synop);
+                s4Html += createRow('SYNTAX', item.extras.syntax);
+                s4Html += createRow('FYI', item.extras.fyi);
+
+                if(s4Html.trim()) html += `<div class="result-section">${s4Html}</div>`;
+                html += `</div>`;
+                container.innerHTML += html;
+            });
+        }
+
+        function renderSectionHTML(num, data) {
+            let html = '';
+            html += createGif(data.gif);
+            html += createRow(`STRUCTURE ${num}`, data.struct);
+            if(num===3) html += createRow('MEANING 3', data.mean);
+            html += createRow(`EN ${num}`, data.en);
+            data.th.forEach((val, i) => html += createRow(`TH ${num}.${i+1}`, val));
+            if(data.ex) data.ex.forEach((val, i) => html += createRow(`EX.${i+1}`, val));
+            
+            return html ? `<div class="result-section">${html}</div>` : '';
         }
 
         function createRow(label, content) {
             if (content && content !== '<br>' && content.trim() !== '') {
                 return `<div class="result-row"><div class="result-label">${label}</div><div class="result-content">${content}</div></div>`;
-            }
-            return '';
+            } return '';
         }
-
         function createGif(url) {
-            if (url && url.trim() !== '') {
-                return `<img src="${url}" class="final-gif">`;
-            }
+            if (url && url.trim() !== '') return `<img src="${url}" class="final-gif">`;
             return '';
         }
 
-        function saveData() {
-            const mainWord = getVal('main-word');
-            
-            if(!mainWord || mainWord.trim() === '') {
-                alert('อย่าลืมใส่คำศัพท์หลักก่อนนะคะ 💜');
-                return;
+        // --- 6. DELETE ITEM ---
+        function deleteItem(id) {
+            if(confirm('ต้องการลบคำนี้ใช่ไหมคะ?')) {
+                vocabList = vocabList.filter(item => item.id !== id);
+                localStorage.setItem('myVocabDB', JSON.stringify(vocabList));
+                renderGallery();
             }
-
-            let html = `
-                <div class="saved-card">
-                    <div class="main-word">${mainWord}</div>
-            `;
-
-            // Section 1
-            let s1 = '';
-            s1 += createGif(getLink('gif1'));
-            s1 += createRow('STRUCTURE 1', getVal('s1-struct'));
-            s1 += createRow('EN 1', getVal('s1-en'));
-            for(let i=1; i<=5; i++) s1 += createRow(`TH 1.${i}`, getVal(`s1-th${i}`));
-            for(let i=1; i<=4; i++) s1 += createRow(`EX.${i}`, getVal(`s1-ex${i}`));
-            if(s1) html += `<div class="result-section">${s1}</div>`;
-
-            // Section 2
-            let s2 = '';
-            s2 += createGif(getLink('gif2'));
-            s2 += createRow('STRUCTURE 2', getVal('s2-struct'));
-            s2 += createRow('EN 2', getVal('s2-en'));
-            for(let i=1; i<=5; i++) s2 += createRow(`TH 2.${i}`, getVal(`s2-th${i}`));
-            for(let i=1; i<=4; i++) s2 += createRow(`EX.${i}`, getVal(`s2-ex${i}`));
-            if(s2) html += `<div class="result-section">${s2}</div>`;
-
-            // Section 3
-            let s3 = '';
-            s3 += createGif(getLink('gif3'));
-            s3 += createRow('STRUCTURE 3', getVal('s3-struct'));
-            s3 += createRow('MEANING 3', getVal('s3-mean'));
-            s3 += createRow('EN 3', getVal('s3-en'));
-            for(let i=1; i<=5; i++) s3 += createRow(`TH 3.${i}`, getVal(`s3-th${i}`));
-            for(let i=1; i<=4; i++) s3 += createRow(`EX.${i}`, getVal(`s3-ex${i}`));
-            if(s3) html += `<div class="result-section">${s3}</div>`;
-
-            // Section 4
-            let s4 = '';
-            s4 += createGif(getLink('gif4'));
-            s4 += createRow('STRUCTURE 4', getVal('s4-struct'));
-            s4 += createRow('EN 4', getVal('s4-en'));
-            for(let i=1; i<=5; i++) s4 += createRow(`TH 4.${i}`, getVal(`s4-th${i}`));
-            
-            // Extra
-            s4 += createRow('GRAMMAR', getVal('grammar'));
-            s4 += createRow('DERIVE WORDS', getVal('derive'));
-            s4 += createRow('WORD FAMILY', getVal('family'));
-            s4 += createRow('SYN/OP', getVal('synop'));
-            s4 += createRow('SYNTAX', getVal('syntax'));
-            s4 += createRow('FYI', getVal('fyi'));
-            if(s4) html += `<div class="result-section">${s4}</div>`;
-
-            html += `</div>`;
-
-            const output = document.getElementById('output-area');
-            output.innerHTML = html + output.innerHTML;
-            output.scrollIntoView({ behavior: 'smooth' });
         }
+
+        // --- 7. RESET FORM ---
+        function resetForm() {
+            if(confirm('ล้างหน้าจอเพื่อจดคำใหม่นะคะ?')) {
+                document.querySelectorAll('.rich-input').forEach(el => el.innerHTML = '');
+                document.querySelectorAll('.gif-input').forEach(el => el.value = '');
+                document.querySelectorAll('.preview-img').forEach(el => el.style.display = 'none');
+                document.querySelectorAll('.error-msg').forEach(el => el.style.display = 'none');
+                window.scrollTo(0,0);
+            }
+        }
+
+        // Init
+        renderGallery();
     </script>
 </body>
 </html>
