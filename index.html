@@ -3,29 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Cute Vocab Notebook 📖</title>
+    <title>My Phrasal Verb Diary 🎀</title>
     <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;600;700&family=Kodchasan:wght@400;600&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
     <style>
         :root {
-            --bg: #fff9fb;
-            --primary: #ffb7b2;
-            --secondary: #b5ead7;
-            --accent: #c7ceea;
-            --text: #6d6d6d;
-            --white: #ffffff;
-            --highlight: #fff2cc;
+            --bg: #fff0f5;
+            --card: #ffffff;
+            --primary: #ffb7b2; /* Pastel Red */
+            --secondary: #a0c4ff; /* Pastel Blue */
+            --highlight: #fdffb6; /* Pastel Yellow */
+            --accent: #caffbf; /* Pastel Green */
+            --text: #6d6875;
+            --border-r: 15px;
         }
 
         body {
             font-family: 'Mali', cursive;
             background-color: var(--bg);
-            background-image: radial-gradient(#ffdac1 15%, transparent 16%);
-            background-size: 20px 20px;
-            color: var(--text);
+            background-image: radial-gradient(#ffd1dc 15%, transparent 16%);
+            background-size: 25px 25px;
             margin: 0;
             padding: 20px;
+            color: var(--text);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -39,431 +40,452 @@
         h1 {
             text-align: center;
             color: #ff9aa2;
-            font-size: 2.5rem;
             text-shadow: 2px 2px 0 #fff;
-            margin-bottom: 30px;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
         }
 
-        /* --- Editor Card Style --- */
-        .card {
-            background: var(--white);
-            border-radius: 20px;
-            padding: 25px;
-            margin-bottom: 25px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
-            border: 3px solid #fff;
-            position: relative;
-        }
-
-        .section-header {
-            background: #ffdac1;
-            color: #fff;
+        /* --- Toolbar (Sticky) --- */
+        .toolbar {
+            position: sticky;
+            top: 10px;
+            background: rgba(255, 255, 255, 0.95);
             padding: 10px 20px;
             border-radius: 50px;
-            display: inline-block;
-            font-weight: bold;
-            margin-bottom: 15px;
-            font-size: 1.2rem;
-            box-shadow: 0 4px 0 rgba(0,0,0,0.1);
-        }
-
-        .section-1 { border-color: #ffb7b2; }
-        .section-1 .section-header { background: #ffb7b2; }
-        
-        .section-2 { border-color: #b5ead7; }
-        .section-2 .section-header { background: #b5ead7; }
-        
-        .section-3 { border-color: #c7ceea; }
-        .section-3 .section-header { background: #c7ceea; }
-        
-        .section-4 { border-color: #ff9aa2; }
-        .section-4 .section-header { background: #ff9aa2; }
-
-        /* --- Rich Text Input --- */
-        .input-wrapper {
-            margin-bottom: 15px;
-            position: relative;
-        }
-
-        .label-text {
-            font-size: 0.9rem;
-            font-weight: bold;
-            color: #888;
-            margin-bottom: 5px;
-            display: block;
-        }
-
-        /* Toolbar Styles */
-        .toolbar {
-            background: #f0f0f0;
-            border-radius: 10px 10px 0 0;
-            padding: 5px 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
             display: flex;
-            gap: 5px;
-            border: 1px solid #ddd;
-            border-bottom: none;
+            gap: 10px;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            margin-bottom: 20px;
+            border: 2px solid var(--primary);
         }
 
         .tool-btn {
-            background: white;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+            background: none;
+            border: 2px solid #eee;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
             cursor: pointer;
-            width: 28px;
-            height: 28px;
+            font-size: 1.2rem;
+            color: var(--text);
+            transition: 0.2s;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.8rem;
-            color: #555;
-            transition: all 0.2s;
         }
 
-        .tool-btn:hover { background: #eef; color: var(--primary); }
-        .tool-btn.active { background: #ddd; }
+        .tool-btn:hover { background: var(--highlight); transform: scale(1.1); }
+        .tool-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
 
         /* Color Picker hidden input */
-        input[type="color"] {
-            width: 25px;
-            height: 25px;
-            padding: 0;
-            border: none;
-            cursor: pointer;
-            background: none;
+        #color-picker { visibility: hidden; width: 0; height: 0; position: absolute; }
+        .color-label {
+            width: 30px; height: 30px; border-radius: 50%;
+            background: linear-gradient(45deg, red, blue);
+            cursor: pointer; border: 2px solid #ddd;
         }
 
-        /* The Editable Box */
-        .editor-box {
-            border: 1px solid #ddd;
-            border-radius: 0 0 10px 10px;
-            padding: 10px;
-            min-height: 40px;
-            background: #fff;
-            outline: none;
+        /* --- Main Form --- */
+        .main-card {
+            background: var(--card);
+            padding: 30px;
+            border-radius: var(--border-r);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            border: 4px dashed #ffc8dd;
+        }
+
+        .header-input {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .section-block {
+            background: #f9fbfd;
+            border: 2px solid #eef;
+            border-radius: var(--border-r);
+            padding: 20px;
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .section-block.s1 { border-color: #ffb7b2; background: #fff5f5; }
+        .section-block.s2 { border-color: #a0c4ff; background: #f0f8ff; }
+        .section-block.s3 { border-color: #caffbf; background: #fafff5; }
+        .section-block.s4 { border-color: #bdb2ff; background: #f5f3ff; }
+
+        .section-title {
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            background: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+        }
+        
+        .s1 .section-title { color: #ff6f61; border: 2px solid #ffb7b2; }
+        .s2 .section-title { color: #4dabf7; border: 2px solid #a0c4ff; }
+        .s3 .section-title { color: #69db7c; border: 2px solid #caffbf; }
+        .s4 .section-title { color: #9775fa; border: 2px solid #bdb2ff; }
+
+        .row { display: flex; gap: 10px; margin-bottom: 10px; }
+        .col { flex: 1; }
+
+        label {
+            display: block;
+            font-size: 0.9rem;
+            color: #888;
+            margin-bottom: 3px;
             font-family: 'Kodchasan', sans-serif;
-            font-size: 1rem;
-            line-height: 1.5;
         }
 
-        .editor-box:focus {
-            background: #fffdfo;
-            border-color: var(--primary);
+        /* --- Content Editable Div (Instead of Input) --- */
+        .editable {
+            width: 100%;
+            min-height: 40px;
+            padding: 10px;
+            background: white;
+            border: 2px dashed #ddd;
+            border-radius: 10px;
+            font-family: 'Kodchasan', sans-serif;
+            outline: none;
+            transition: 0.3s;
+            cursor: text;
+        }
+
+        .editable:focus {
+            border-color: var(--secondary);
+            background: #fff;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        /* Placeholder Logic for Divs */
+        .editable:empty:before {
+            content: attr(data-placeholder);
+            color: #ccc;
         }
 
         /* --- GIF Input --- */
-        .gif-input-group {
-            background: #f9f9f9;
-            padding: 15px;
-            border-radius: 15px;
-            border: 2px dashed #ddd;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        .gif-preview {
-            max-width: 100%;
-            max-height: 200px;
-            border-radius: 10px;
-            margin-top: 10px;
-            display: none;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-        .url-input {
-            width: 90%;
-            padding: 10px;
-            border-radius: 20px;
-            border: 1px solid #ccc;
-            font-family: 'Kodchasan', sans-serif;
-            text-align: center;
+        .gif-input {
+            border: 2px solid #ffafcc;
+            background: #fff0f5;
         }
 
         /* --- Save Button --- */
         .btn-save {
-            background: #ff9aa2;
+            background: var(--primary);
             color: white;
             border: none;
-            padding: 15px 50px;
+            padding: 15px 40px;
             border-radius: 50px;
             font-family: 'Mali', cursive;
             font-size: 1.5rem;
             font-weight: bold;
             cursor: pointer;
             width: 100%;
-            margin: 30px 0;
-            box-shadow: 0 6px 0 #e57373;
-            transition: all 0.2s;
+            margin-top: 20px;
+            box-shadow: 0 6px 0 #ff8a80;
+            transition: 0.2s;
         }
-        .btn-save:hover { transform: translateY(-2px); box-shadow: 0 8px 0 #e57373; }
+        .btn-save:hover { transform: translateY(-3px); box-shadow: 0 8px 0 #ff8a80; }
         .btn-save:active { transform: translateY(4px); box-shadow: none; }
 
-        /* --- Output Style --- */
-        #output { margin-top: 20px; }
-        .output-card {
+        /* --- Output Card --- */
+        #output-area { margin-top: 40px; }
+        
+        .card-result {
             background: white;
-            padding: 30px;
+            padding: 40px;
             border-radius: 20px;
-            border: 2px solid #eee;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border-top: 20px solid var(--secondary);
             margin-bottom: 30px;
-            font-family: 'Kodchasan', sans-serif;
+            position: relative;
         }
-        .output-row { margin-bottom: 8px; }
-        .tag {
-            font-weight: bold;
-            color: #ff9aa2;
-            margin-right: 5px;
-        }
+
+        .card-header { text-align: center; margin-bottom: 20px; border-bottom: 2px dashed #eee; padding-bottom: 20px; }
+        .card-word { font-size: 2.5rem; color: var(--secondary); font-weight: bold; }
+        
+        .card-section { margin-bottom: 25px; padding: 15px; border-radius: 15px; background: #fcfcfc; border-left: 5px solid #ddd; }
+        .card-section.c1 { border-color: #ffb7b2; background: #fffbfb; }
+        .card-section.c2 { border-color: #a0c4ff; background: #f4f9ff; }
+        .card-section.c3 { border-color: #caffbf; background: #f9fff6; }
+        .card-section.c4 { border-color: #bdb2ff; background: #faf9ff; }
+
+        .card-gif { max-width: 100%; border-radius: 10px; margin-top: 10px; border: 3px solid white; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        
+        .line-item { margin-bottom: 8px; font-family: 'Kodchasan', sans-serif; }
+        .label-tag { font-weight: bold; color: #555; background: #eee; padding: 2px 6px; border-radius: 5px; font-size: 0.8rem; margin-right: 5px; }
+        
+        .footer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; background: #fdfdfd; padding: 15px; border-radius: 15px; border: 1px dashed #ccc; }
+
+        /* Highlight classes */
+        .highlight-bg { background-color: var(--highlight); padding: 0 2px; }
+        .color-text { color: var(--primary); }
 
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h1>🎀 Vocab Builder 🎀</h1>
-
-    <div class="card" style="text-align: center; border-color: #ffdac1;">
-        <label class="label-text">คำที่จะใส่ + อิโมจิ 🌸</label>
-        <input type="text" id="main-title" class="url-input" placeholder="Ex. Give Up 🏳️" style="font-size: 1.5rem; font-weight:bold;">
-    </div>
-
-    <div class="card section-1">
-        <div class="section-header">SECTION 1</div>
-
-        <div class="gif-input-group">
-            <label class="label-text">🔗 ลิงก์ไฟล์ GIF (Embed) 1</label>
-            <input type="text" class="url-input gif-url" placeholder="วางลิงก์รูปภาพหรือ GIF ที่นี่..." oninput="previewGif(this)">
-            <img class="gif-preview" src="" alt="GIF Preview">
-        </div>
-
-        <div class="input-wrapper" data-label="EN 1"></div>
-
-        <div class="input-wrapper" data-label="TH 1.1"></div>
-        <div class="input-wrapper" data-label="TH 1.2"></div>
-        <div class="input-wrapper" data-label="TH 1.3"></div>
-        <div class="input-wrapper" data-label="TH 1.4"></div>
-        <div class="input-wrapper" data-label="TH 1.5"></div>
-
-        <div style="margin-top: 15px; border-top: 2px dashed #ffb7b2; padding-top: 15px;">
-            <div class="input-wrapper" data-label="EX.1"></div>
-            <div class="input-wrapper" data-label="EX.2"></div>
-            <div class="input-wrapper" data-label="EX.3"></div>
-            <div class="input-wrapper" data-label="EX.4"></div>
-        </div>
-    </div>
-
-    <div class="card section-2">
-        <div class="section-header">SECTION 2</div>
-
-        <div class="gif-input-group">
-            <label class="label-text">🔗 ลิงก์ไฟล์ GIF (Embed) 2</label>
-            <input type="text" class="url-input gif-url" placeholder="วางลิงก์รูปภาพหรือ GIF ที่นี่..." oninput="previewGif(this)">
-            <img class="gif-preview" src="" alt="GIF Preview">
-        </div>
-
-        <div class="input-wrapper" data-label="STRUCTURE 2"></div>
-        <div class="input-wrapper" data-label="EN 2"></div>
-
-        <div class="input-wrapper" data-label="TH 2.1"></div>
-        <div class="input-wrapper" data-label="TH 2.2"></div>
-        <div class="input-wrapper" data-label="TH 2.3"></div>
-        <div class="input-wrapper" data-label="TH 2.4"></div>
-        <div class="input-wrapper" data-label="TH 2.5"></div>
-
-        <div style="margin-top: 15px; border-top: 2px dashed #b5ead7; padding-top: 15px;">
-            <div class="input-wrapper" data-label="EX.1 (Sec 2)"></div>
-            <div class="input-wrapper" data-label="EX.2 (Sec 2)"></div>
-            <div class="input-wrapper" data-label="EX.3 (Sec 2)"></div>
-            <div class="input-wrapper" data-label="EX.4 (Sec 2)"></div>
-        </div>
-    </div>
-
-    <div class="card section-3">
-        <div class="section-header">SECTION 3</div>
-
-        <div class="gif-input-group">
-            <label class="label-text">🔗 ลิงก์ไฟล์ GIF (Embed) 3</label>
-            <input type="text" class="url-input gif-url" placeholder="วางลิงก์รูปภาพหรือ GIF ที่นี่..." oninput="previewGif(this)">
-            <img class="gif-preview" src="" alt="GIF Preview">
-        </div>
-
-        <div class="input-wrapper" data-label="STRUCTURE 3"></div>
-        <div class="input-wrapper" data-label="MEANING 3"></div>
-        <div class="input-wrapper" data-label="EN 3"></div>
-
-        <div class="input-wrapper" data-label="TH 3.1"></div>
-        <div class="input-wrapper" data-label="TH 3.2"></div>
-        <div class="input-wrapper" data-label="TH 3.3"></div>
-        <div class="input-wrapper" data-label="TH 3.4"></div>
-        <div class="input-wrapper" data-label="TH 3.5"></div>
-
-        <div style="margin-top: 15px; border-top: 2px dashed #c7ceea; padding-top: 15px;">
-            <div class="input-wrapper" data-label="EX.1 (Sec 3)"></div>
-            <div class="input-wrapper" data-label="EX.2 (Sec 3)"></div>
-            <div class="input-wrapper" data-label="EX.3 (Sec 3)"></div>
-            <div class="input-wrapper" data-label="EX.4 (Sec 3)"></div>
-        </div>
-    </div>
-
-    <div class="card section-4">
-        <div class="section-header">SECTION 4</div>
-
-        <div class="gif-input-group">
-            <label class="label-text">🔗 ลิงก์ไฟล์ GIF (Embed) 4</label>
-            <input type="text" class="url-input gif-url" placeholder="วางลิงก์รูปภาพหรือ GIF ที่นี่..." oninput="previewGif(this)">
-            <img class="gif-preview" src="" alt="GIF Preview">
-        </div>
-
-        <div class="input-wrapper" data-label="STRUCTURE 4"></div>
-        <div class="input-wrapper" data-label="EN 4"></div>
-
-        <div class="input-wrapper" data-label="TH 4.1"></div>
-        <div class="input-wrapper" data-label="TH 4.2"></div>
-        <div class="input-wrapper" data-label="TH 4.3"></div>
-        <div class="input-wrapper" data-label="TH 4.4"></div>
-        <div class="input-wrapper" data-label="TH 4.5"></div>
-    </div>
-
-    <div class="card" style="border-color: #ddd;">
-        <div class="section-header" style="background:#ddd; color:#555;">EXTRA INFO</div>
-        <div class="input-wrapper" data-label="GRAMMAR"></div>
-        <div class="input-wrapper" data-label="DERIVE WORDS"></div>
-        <div class="input-wrapper" data-label="WORD FAMILY"></div>
-        <div class="input-wrapper" data-label="SYN/OP"></div>
-        <div class="input-wrapper" data-label="SYNTAX"></div>
-        <div class="input-wrapper" data-label="FYI"></div>
-    </div>
-
-    <button class="btn-save" onclick="saveData()">✨ บันทึกข้อมูล (Save) ✨</button>
-
-    <div id="output"></div>
-</div>
-
-<script>
-    // 1. Script สร้าง Toolbar และ Editor โดยอัตโนมัติ
-    document.addEventListener("DOMContentLoaded", function() {
-        const wrappers = document.querySelectorAll('.input-wrapper');
+    <div class="toolbar">
+        <span style="font-size: 0.9rem; margin-right: 10px;">เครื่องมือตกแต่ง:</span>
+        <button class="tool-btn" onclick="execCmd('bold')" title="ตัวหนา"><i class="fas fa-bold"></i></button>
+        <button class="tool-btn" onclick="execCmd('italic')" title="ตัวเอียง"><i class="fas fa-italic"></i></button>
+        <button class="tool-btn" onclick="execCmd('hiliteColor', '#fdffb6')" title="ไฮไลต์ข้อความ"><i class="fas fa-highlighter"></i></button>
         
-        wrappers.forEach(wrapper => {
-            const label = wrapper.getAttribute('data-label');
-            const uniqueId = 'editor-' + Math.random().toString(36).substr(2, 9);
+        <label class="color-label" title="เปลี่ยนสีตัวอักษร">
+            <input type="color" id="color-picker" onchange="execCmd('foreColor', this.value)">
+        </label>
+    </div>
 
-            wrapper.innerHTML = `
-                <label class="label-text">${label}</label>
-                <div class="toolbar">
-                    <button class="tool-btn" onclick="formatDoc('bold', null)" title="Bold"><i class="fas fa-bold"></i></button>
-                    <button class="tool-btn" onclick="formatDoc('backColor', 'yellow')" title="Highlight"><i class="fas fa-highlighter" style="color:#ffd700;"></i></button>
-                    <div style="position:relative; display:inline-block;">
-                        <button class="tool-btn" title="Text Color"><i class="fas fa-palette" style="color:#ff6b6b;"></i></button>
-                        <input type="color" onchange="formatDoc('foreColor', this.value)" style="position:absolute; top:0; left:0; opacity:0; width:100%; height:100%;">
-                    </div>
+    <div class="container">
+        <h1>📔 My Phrasal Verb Diary</h1>
+
+        <div class="main-card">
+            
+            <div class="header-input">
+                <div class="editable" id="main-word" data-placeholder="✨ ใส่คำศัพท์หลัก + อิโมจิ ตรงนี้เลย..." style="font-size: 1.5rem; text-align: center; border: 3px solid var(--secondary);" contenteditable="true"></div>
+            </div>
+
+            <div class="section-block s1">
+                <div class="section-title">🍓 STRUCTURE 1</div>
+                
+                <div class="row">
+                    <div class="col"><div class="editable gif-input" id="s1-gif" data-placeholder="🔗 วางลิงก์ไฟล์ GIF ที่นี่..." contenteditable="true"></div></div>
                 </div>
-                <div class="editor-box" contenteditable="true" id="${uniqueId}"></div>
-            `;
-        });
-    });
+                <div class="row">
+                    <div class="col"><div class="editable" id="s1-en" data-placeholder="🇬🇧 EN 1" contenteditable="true"></div></div>
+                </div>
+                <div class="row">
+                    <div class="col"><div class="editable" id="s1-th1" data-placeholder="🇹🇭 TH 1.1" contenteditable="true"></div></div>
+                    <div class="col"><div class="editable" id="s1-th2" data-placeholder="🇹🇭 TH 1.2" contenteditable="true"></div></div>
+                </div>
+                <div class="row">
+                    <div class="col"><div class="editable" id="s1-th3" data-placeholder="🇹🇭 TH 1.3" contenteditable="true"></div></div>
+                    <div class="col"><div class="editable" id="s1-th4" data-placeholder="🇹🇭 TH 1.4" contenteditable="true"></div></div>
+                    <div class="col"><div class="editable" id="s1-th5" data-placeholder="🇹🇭 TH 1.5" contenteditable="true"></div></div>
+                </div>
+                <div style="margin-top: 10px;">
+                    <div class="editable" id="s1-ex1" data-placeholder="💬 EX.1" contenteditable="true" style="margin-bottom: 5px;"></div>
+                    <div class="editable" id="s1-ex2" data-placeholder="💬 EX.2" contenteditable="true" style="margin-bottom: 5px;"></div>
+                    <div class="editable" id="s1-ex3" data-placeholder="💬 EX.3" contenteditable="true" style="margin-bottom: 5px;"></div>
+                    <div class="editable" id="s1-ex4" data-placeholder="💬 EX.4" contenteditable="true"></div>
+                </div>
+            </div>
 
-    // 2. ฟังก์ชันจัดรูปแบบข้อความ (Bold, Color, Highlight)
-    function formatDoc(cmd, value) {
-        document.execCommand(cmd, false, value);
-    }
+            <div class="section-block s2">
+                <div class="section-title">🫐 STRUCTURE 2</div>
+                <div class="row"><div class="col"><div class="editable gif-input" id="s2-gif" data-placeholder="🔗 GIF Link..." contenteditable="true"></div></div></div>
+                <div class="row"><div class="col"><div class="editable" id="s2-en" data-placeholder="🇬🇧 EN 2" contenteditable="true"></div></div></div>
+                <div class="row"><div class="col"><div class="editable" id="s2-th1" data-placeholder="🇹🇭 TH 2.1" contenteditable="true"></div></div><div class="col"><div class="editable" id="s2-th2" data-placeholder="🇹🇭 TH 2.2" contenteditable="true"></div></div></div>
+                <div class="row"><div class="col"><div class="editable" id="s2-th3" data-placeholder="🇹🇭 TH 2.3" contenteditable="true"></div></div><div class="col"><div class="editable" id="s2-th4" data-placeholder="🇹🇭 TH 2.4" contenteditable="true"></div></div><div class="col"><div class="editable" id="s2-th5" data-placeholder="🇹🇭 TH 2.5" contenteditable="true"></div></div></div>
+                <div style="margin-top: 10px;">
+                    <div class="editable" id="s2-ex1" data-placeholder="💬 EX.1" contenteditable="true" style="margin-bottom: 5px;"></div>
+                    <div class="editable" id="s2-ex2" data-placeholder="💬 EX.2" contenteditable="true" style="margin-bottom: 5px;"></div>
+                    <div class="editable" id="s2-ex3" data-placeholder="💬 EX.3" contenteditable="true" style="margin-bottom: 5px;"></div>
+                    <div class="editable" id="s2-ex4" data-placeholder="💬 EX.4" contenteditable="true"></div>
+                </div>
+            </div>
 
-    // 3. ฟังก์ชัน Preview GIF
-    function previewGif(input) {
-        const img = input.nextElementSibling;
-        if (input.value) {
-            img.src = input.value;
-            img.style.display = 'block';
-        } else {
-            img.style.display = 'none';
+            <div class="section-block s3">
+                <div class="section-title">🍈 STRUCTURE 3</div>
+                <div class="row"><div class="col"><div class="editable gif-input" id="s3-gif" data-placeholder="🔗 GIF Link..." contenteditable="true"></div></div></div>
+                <div class="row"><div class="col"><div class="editable" id="s3-mean" data-placeholder="📖 MEANING 3" contenteditable="true"></div></div></div>
+                <div class="row"><div class="col"><div class="editable" id="s3-en" data-placeholder="🇬🇧 EN 3" contenteditable="true"></div></div></div>
+                <div class="row"><div class="col"><div class="editable" id="s3-th1" data-placeholder="🇹🇭 TH 3.1" contenteditable="true"></div></div><div class="col"><div class="editable" id="s3-th2" data-placeholder="🇹🇭 TH 3.2" contenteditable="true"></div></div></div>
+                <div class="row"><div class="col"><div class="editable" id="s3-th3" data-placeholder="🇹🇭 TH 3.3" contenteditable="true"></div></div><div class="col"><div class="editable" id="s3-th4" data-placeholder="🇹🇭 TH 3.4" contenteditable="true"></div></div><div class="col"><div class="editable" id="s3-th5" data-placeholder="🇹🇭 TH 3.5" contenteditable="true"></div></div></div>
+                <div style="margin-top: 10px;">
+                    <div class="editable" id="s3-ex1" data-placeholder="💬 EX.1" contenteditable="true" style="margin-bottom: 5px;"></div>
+                    <div class="editable" id="s3-ex2" data-placeholder="💬 EX.2" contenteditable="true" style="margin-bottom: 5px;"></div>
+                    <div class="editable" id="s3-ex3" data-placeholder="💬 EX.3" contenteditable="true" style="margin-bottom: 5px;"></div>
+                    <div class="editable" id="s3-ex4" data-placeholder="💬 EX.4" contenteditable="true"></div>
+                </div>
+            </div>
+
+            <div class="section-block s4">
+                <div class="section-title">🍇 STRUCTURE 4</div>
+                <div class="row"><div class="col"><div class="editable gif-input" id="s4-gif" data-placeholder="🔗 GIF Link..." contenteditable="true"></div></div></div>
+                <div class="row"><div class="col"><div class="editable" id="s4-en" data-placeholder="🇬🇧 EN 4" contenteditable="true"></div></div></div>
+                <div class="row"><div class="col"><div class="editable" id="s4-th1" data-placeholder="🇹🇭 TH 4.1" contenteditable="true"></div></div><div class="col"><div class="editable" id="s4-th2" data-placeholder="🇹🇭 TH 4.2" contenteditable="true"></div></div></div>
+                <div class="row"><div class="col"><div class="editable" id="s4-th3" data-placeholder="🇹🇭 TH 4.3" contenteditable="true"></div></div><div class="col"><div class="editable" id="s4-th4" data-placeholder="🇹🇭 TH 4.4" contenteditable="true"></div></div><div class="col"><div class="editable" id="s4-th5" data-placeholder="🇹🇭 TH 4.5" contenteditable="true"></div></div></div>
+            </div>
+
+            <div class="section-block" style="border-color: #ddd;">
+                <div class="section-title" style="color: #666; border-color: #ddd;">📚 EXTRA INFO</div>
+                <div class="row">
+                    <div class="col"><label>GRAMMAR</label><div class="editable" id="grammar" contenteditable="true"></div></div>
+                    <div class="col"><label>DERIVE WORDS</label><div class="editable" id="derive" contenteditable="true"></div></div>
+                </div>
+                <div class="row">
+                    <div class="col"><label>WORD FAMILY</label><div class="editable" id="family" contenteditable="true"></div></div>
+                    <div class="col"><label>SYN/OP</label><div class="editable" id="synop" contenteditable="true"></div></div>
+                </div>
+                <div class="row">
+                    <div class="col"><label>SYNTAX</label><div class="editable" id="syntax" contenteditable="true"></div></div>
+                </div>
+                <div class="row">
+                    <div class="col"><label>FYI</label><div class="editable" id="fyi" contenteditable="true"></div></div>
+                </div>
+            </div>
+
+            <button class="btn-save" onclick="generateCard()">💖 บันทึกลงสมุด</button>
+
+        </div>
+
+        <div id="output-area"></div>
+    </div>
+
+    <script>
+        // Function for Rich Text Editing
+        function execCmd(command, value = null) {
+            document.execCommand(command, false, value);
         }
-    }
 
-    // 4. ฟังก์ชันบันทึกข้อมูล (Save)
-    function saveData() {
-        const mainTitle = document.getElementById('main-title').value;
-        const wrappers = document.querySelectorAll('.input-wrapper');
-        const gifInputs = document.querySelectorAll('.gif-url');
-        
-        let html = `
-            <div class="output-card">
-                <h2 style="text-align:center; color:#ff9aa2; border-bottom:2px dashed #eee; padding-bottom:10px;">${mainTitle || 'Vocabulary'}</h2>
-        `;
-
-        // Loop เก็บข้อมูลทุกช่อง
-        let gifIndex = 0;
-        
-        // เราจะวนลูปตาม Section เพื่อใส่ GIF ให้ถูกที่
-        // แต่เพื่อความง่าย เราจะดึงข้อมูลทีละส่วนแล้วประกอบร่าง
-
-        // Helper function to get content
-        const getContent = (label) => {
-            const el = document.querySelector(`.input-wrapper[data-label="${label}"] .editor-box`);
-            return el && el.innerHTML.trim() !== "" ? el.innerHTML : null;
+        // Helper to get HTML content (not just text)
+        function getContent(id) {
+            const el = document.getElementById(id);
+            return (el && el.innerHTML.trim() !== "" && el.innerHTML !== "<br>") ? el.innerHTML : null;
         }
 
-        // Helper to render GIF
-        const renderGif = (index) => {
-            const url = gifInputs[index].value;
-            if(url) return `<div style="text-align:center; margin:15px 0;"><img src="${url}" style="max-width:100%; border-radius:10px;"></div>`;
+        // Helper to create GIF element
+        function createGifHtml(link) {
+            // Remove html tags from link if user pasted formatted text
+            const cleanLink = link.replace(/<[^>]*>?/gm, ''); 
+            if (cleanLink && cleanLink.startsWith('http')) {
+                return `<img src="${cleanLink}" class="card-gif" alt="Gif">`;
+            } else if (cleanLink) {
+                return `<div style="color:red; font-size:0.8rem;">(Invalid GIF Link)</div>`;
+            }
             return '';
         }
 
-        // --- Render Logic ---
-        // Section 1
-        html += `<h3 style="background:#ffb7b2; color:white; padding:5px 15px; border-radius:20px; display:inline-block;">Section 1</h3>`;
-        html += renderGif(0);
-        
-        const list1 = ['EN 1', 'TH 1.1', 'TH 1.2', 'TH 1.3', 'TH 1.4', 'TH 1.5', 'EX.1', 'EX.2', 'EX.3', 'EX.4'];
-        list1.forEach(lbl => {
-            const content = getContent(lbl);
-            if(content) html += `<div class="output-row"><span class="tag">${lbl}:</span> ${content}</div>`;
-        });
-        html += `<hr style="border:1px dashed #eee; margin:20px 0;">`;
+        function createLine(label, content, icon = '') {
+            if (content) {
+                return `<div class="line-item"><span class="label-tag">${icon} ${label}</span> ${content}</div>`;
+            }
+            return '';
+        }
 
-        // Section 2
-        html += `<h3 style="background:#b5ead7; color:white; padding:5px 15px; border-radius:20px; display:inline-block;">Section 2</h3>`;
-        html += renderGif(1);
-        
-        const list2 = ['STRUCTURE 2', 'EN 2', 'TH 2.1', 'TH 2.2', 'TH 2.3', 'TH 2.4', 'TH 2.5', 'EX.1 (Sec 2)', 'EX.2 (Sec 2)', 'EX.3 (Sec 2)', 'EX.4 (Sec 2)'];
-        list2.forEach(lbl => {
-            const content = getContent(lbl);
-            if(content) html += `<div class="output-row"><span class="tag">${lbl.replace(' (Sec 2)', '')}:</span> ${content}</div>`;
-        });
-        html += `<hr style="border:1px dashed #eee; margin:20px 0;">`;
+        function generateCard() {
+            const mainWord = getContent('main-word');
 
-        // Section 3
-        html += `<h3 style="background:#c7ceea; color:white; padding:5px 15px; border-radius:20px; display:inline-block;">Section 3</h3>`;
-        html += renderGif(2);
+            if (!mainWord) {
+                alert("อย่าลืมใส่คำศัพท์หลักก่อนนะค้า 🥺");
+                return;
+            }
 
-        const list3 = ['STRUCTURE 3', 'MEANING 3', 'EN 3', 'TH 3.1', 'TH 3.2', 'TH 3.3', 'TH 3.4', 'TH 3.5', 'EX.1 (Sec 3)', 'EX.2 (Sec 3)', 'EX.3 (Sec 3)', 'EX.4 (Sec 3)'];
-        list3.forEach(lbl => {
-            const content = getContent(lbl);
-            if(content) html += `<div class="output-row"><span class="tag">${lbl.replace(' (Sec 3)', '')}:</span> ${content}</div>`;
-        });
-        html += `<hr style="border:1px dashed #eee; margin:20px 0;">`;
+            // Build Structure 1 HTML
+            let s1Html = '';
+            if (getContent('s1-en') || getContent('s1-th1')) {
+                s1Html += `<div class="card-section c1">
+                    <h3 style="margin:0 0 10px 0; color:#ff6f61;">🍓 Structure 1</h3>
+                    ${createGifHtml(document.getElementById('s1-gif').innerText)}
+                    ${createLine('EN', getContent('s1-en'))}
+                    ${createLine('TH 1.1', getContent('s1-th1'))}
+                    ${createLine('TH 1.2', getContent('s1-th2'))}
+                    ${createLine('TH 1.3', getContent('s1-th3'))}
+                    ${createLine('TH 1.4', getContent('s1-th4'))}
+                    ${createLine('TH 1.5', getContent('s1-th5'))}
+                    <hr style="border:1px dashed #ffb7b2; opacity:0.5;">
+                    ${createLine('EX.1', getContent('s1-ex1'))}
+                    ${createLine('EX.2', getContent('s1-ex2'))}
+                    ${createLine('EX.3', getContent('s1-ex3'))}
+                    ${createLine('EX.4', getContent('s1-ex4'))}
+                </div>`;
+            }
 
-        // Section 4
-        html += `<h3 style="background:#ff9aa2; color:white; padding:5px 15px; border-radius:20px; display:inline-block;">Section 4</h3>`;
-        html += renderGif(3);
+            // Build Structure 2 HTML
+            let s2Html = '';
+            if (getContent('s2-en') || getContent('s2-th1')) {
+                s2Html += `<div class="card-section c2">
+                    <h3 style="margin:0 0 10px 0; color:#4dabf7;">🫐 Structure 2</h3>
+                    ${createGifHtml(document.getElementById('s2-gif').innerText)}
+                    ${createLine('EN', getContent('s2-en'))}
+                    ${createLine('TH 2.1', getContent('s2-th1'))}
+                    ${createLine('TH 2.2', getContent('s2-th2'))}
+                    ${createLine('TH 2.3', getContent('s2-th3'))}
+                    ${createLine('TH 2.4', getContent('s2-th4'))}
+                    ${createLine('TH 2.5', getContent('s2-th5'))}
+                    <hr style="border:1px dashed #a0c4ff; opacity:0.5;">
+                    ${createLine('EX.1', getContent('s2-ex1'))}
+                    ${createLine('EX.2', getContent('s2-ex2'))}
+                    ${createLine('EX.3', getContent('s2-ex3'))}
+                    ${createLine('EX.4', getContent('s2-ex4'))}
+                </div>`;
+            }
 
-        const list4 = ['STRUCTURE 4', 'EN 4', 'TH 4.1', 'TH 4.2', 'TH 4.3', 'TH 4.4', 'TH 4.5'];
-        list4.forEach(lbl => {
-            const content = getContent(lbl);
-            if(content) html += `<div class="output-row"><span class="tag">${lbl}:</span> ${content}</div>`;
-        });
-        html += `<hr style="border:1px dashed #eee; margin:20px 0;">`;
+            // Build Structure 3 HTML
+            let s3Html = '';
+            if (getContent('s3-en') || getContent('s3-mean')) {
+                s3Html += `<div class="card-section c3">
+                    <h3 style="margin:0 0 10px 0; color:#69db7c;">🍈 Structure 3</h3>
+                    ${createGifHtml(document.getElementById('s3-gif').innerText)}
+                    ${createLine('MEANING', getContent('s3-mean'))}
+                    ${createLine('EN', getContent('s3-en'))}
+                    ${createLine('TH 3.1', getContent('s3-th1'))}
+                    ${createLine('TH 3.2', getContent('s3-th2'))}
+                    ${createLine('TH 3.3', getContent('s3-th3'))}
+                    ${createLine('TH 3.4', getContent('s3-th4'))}
+                    ${createLine('TH 3.5', getContent('s3-th5'))}
+                    <hr style="border:1px dashed #caffbf; opacity:0.5;">
+                    ${createLine('EX.1', getContent('s3-ex1'))}
+                    ${createLine('EX.2', getContent('s3-ex2'))}
+                    ${createLine('EX.3', getContent('s3-ex3'))}
+                    ${createLine('EX.4', getContent('s3-ex4'))}
+                </div>`;
+            }
 
-        // Footer
-        html += `<div style="background:#f9f9f9; padding:15px; border-radius:15px;">`;
-        const listFooter = ['GRAMMAR', 'DERIVE WORDS', 'WORD FAMILY', 'SYN/OP', 'SYNTAX', 'FYI'];
-        listFooter.forEach(lbl => {
-            const content = getContent(lbl);
-            if(content) html += `<div class="output-row"><span class="tag" style="color:#888;">${lbl}:</span> ${content}</div>`;
-        });
-        html += `</div></div>`;
+            // Build Structure 4 HTML
+            let s4Html = '';
+            if (getContent('s4-en') || getContent('s4-th1')) {
+                s4Html += `<div class="card-section c4">
+                    <h3 style="margin:0 0 10px 0; color:#9775fa;">🍇 Structure 4</h3>
+                    ${createGifHtml(document.getElementById('s4-gif').innerText)}
+                    ${createLine('EN', getContent('s4-en'))}
+                    ${createLine('TH 4.1', getContent('s4-th1'))}
+                    ${createLine('TH 4.2', getContent('s4-th2'))}
+                    ${createLine('TH 4.3', getContent('s4-th3'))}
+                    ${createLine('TH 4.4', getContent('s4-th4'))}
+                    ${createLine('TH 4.5', getContent('s4-th5'))}
+                </div>`;
+            }
 
-        document.getElementById('output').innerHTML = html;
-        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-    }
-</script>
+            // Extras
+            let extraHtml = `<div class="footer-grid">
+                <div>${createLine('GRAMMAR', getContent('grammar'), '📘')}</div>
+                <div>${createLine('DERIVE', getContent('derive'), '🌱')}</div>
+                <div>${createLine('FAMILY', getContent('family'), '👨‍👩‍👧')}</div>
+                <div>${createLine('SYN/OP', getContent('synop'), '🔄')}</div>
+                <div style="grid-column: span 2;">${createLine('SYNTAX', getContent('syntax'), '🧩')}</div>
+                <div style="grid-column: span 2;">${createLine('FYI', getContent('fyi'), '💡')}</div>
+            </div>`;
 
+            // Combine All
+            const cardHtml = `
+                <div class="card-result">
+                    <div class="card-header">
+                        <div class="card-word">${mainWord}</div>
+                    </div>
+                    ${s1Html}
+                    ${s2Html}
+                    ${s3Html}
+                    ${s4Html}
+                    ${extraHtml}
+                </div>
+            `;
+
+            document.getElementById('output-area').insertAdjacentHTML('afterbegin', cardHtml);
+            
+            // Clear fields (Optional - remove comments to enable)
+            // document.querySelectorAll('.editable').forEach(el => el.innerHTML = '');
+            
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        }
+    </script>
 </body>
 </html>
