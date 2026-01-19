@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Cute Vocab Notebook 📖</title>
+    <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;600;700&family=Kodchasan:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg: #fff9fb;
+            --primary: #ffb7b2;
+            --secondary: #b5ead7;
+            --accent: #c7ceea;
+            --text: #6d6d6d;
+            --white: #ffffff;
+            --highlight: #fff2cc;
+        }
+
+        body {
+            font-family: 'Mali', cursive;
+            background-color: var(--bg);
+            background-image: radial-gradient(#ffdac1 15%, transparent 16%);
+            background-size: 20px 20px;
+            color: var(--text);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            color: #ff9aa2;
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 0 #fff;
+            margin-bottom: 30px;
+        }
+
+        /* --- Editor Card Style --- */
+        .card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            border: 3px solid #fff;
+            position: relative;
+        }
+
+        .section-header {
+            background: #ffdac1;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 50px;
+            display: inline-block;
+            font-weight: bold;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 0 rgba(0,0,0,0.1);
+        }
+
+        .section-1 { border-color: #ffb7b2; }
+        .section-1 .section-header { background: #ffb7b2; }
+        
+        .section-2 { border-color: #b5ead7; }
+        .section-2 .section-header { background: #b5ead7; }
+        
+        .section-3 { border-color: #c7ceea; }
+        .section-3 .section-header { background: #c7ceea; }
+        
+        .section-4 { border-color: #ff9aa2; }
+        .section-4 .section-header { background: #ff9aa2; }
+
+        /* --- Rich Text Input --- */
+        .input-wrapper {
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .label-text {
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: #888;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        /* Toolbar Styles */
+        .toolbar {
+            background: #f0f0f0;
+            border-radius: 10px 10px 0 0;
+            padding: 5px 10px;
+            display: flex;
+            gap: 5px;
+            border: 1px solid #ddd;
+            border-bottom: none;
+        }
+
+        .tool-btn {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            color: #555;
+            transition: all 0.2s;
+        }
+
+        .tool-btn:hover { background: #eef; color: var(--primary); }
+        .tool-btn.active { background: #ddd; }
+
+        /* Color Picker hidden input */
+        input[type="color"] {
+            width: 25px;
+            height: 25px;
+            padding: 0;
+            border: none;
+            cursor: pointer;
+            background: none;
+        }
+
+        /* The Editable Box */
+        .editor-box {
+            border: 1px solid #ddd;
+            border-radius: 0 0 10px 10px;
+            padding: 10px;
+            min-height: 40px;
+            background: #fff;
+            outline: none;
+            font-family: 'Kodchasan', sans-serif;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        .editor-box:focus {
+            background: #fffdfo;
+            border-color: var(--primary);
+        }
+
+        /* --- GIF Input --- */
+        .gif-input-group {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 15px;
+            border: 2px dashed #ddd;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .gif-preview {
+            max-width: 100%;
+            max-height: 200px;
+            border-radius: 10px;
+            margin-top: 10px;
+            display: none;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .url-input {
+            width: 90%;
+            padding: 10px;
+            border-radius: 20px;
+            border: 1px solid #ccc;
+            font-family: 'Kodchasan', sans-serif;
+            text-align: center;
+        }
+
+        /* --- Save Button --- */
+        .btn-save {
+            background: #ff9aa2;
+            color: white;
+            border: none;
+            padding: 15px 50px;
+            border-radius: 50px;
+            font-family: 'Mali', cursive;
+            font-size: 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            margin: 30px 0;
+            box-shadow: 0 6px 0 #e57373;
+            transition: all 0.2s;
+        }
+        .btn-save:hover { transform: translateY(-2px); box-shadow: 0 8px 0 #e57373; }
+        .btn-save:active { transform: translateY(4px); box-shadow: none; }
+
+        /* --- Output Style --- */
+        #output { margin-top: 20px; }
+        .output-card {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            border: 2px solid #eee;
+            margin-bottom: 30px;
+            font-family: 'Kodchasan', sans-serif;
+        }
+        .output-row { margin-bottom: 8px; }
+        .tag {
+            font-weight: bold;
+            color: #ff9aa2;
+            margin-right: 5px;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🎀 Vocab Builder 🎀</h1>
+
+    <div class="card" style="text-align: center; border-color: #ffdac1;">
+        <label class="label-text">คำที่จะใส่ + อิโมจิ 🌸</label>
+        <input type="text" id="main-title" class="url-input" placeholder="Ex. Give Up 🏳️" style="font-size: 1.5rem; font-weight:bold;">
+    </div>
+
+    <div class="card section-1">
+        <div class="section-header">SECTION 1</div>
+
+        <div class="gif-input-group">
+            <label class="label-text">🔗 ลิงก์ไฟล์ GIF (Embed) 1</label>
+            <input type="text" class="url-input gif-url" placeholder="วางลิงก์รูปภาพหรือ GIF ที่นี่..." oninput="previewGif(this)">
+            <img class="gif-preview" src="" alt="GIF Preview">
+        </div>
+
+        <div class="input-wrapper" data-label="EN 1"></div>
+
+        <div class="input-wrapper" data-label="TH 1.1"></div>
+        <div class="input-wrapper" data-label="TH 1.2"></div>
+        <div class="input-wrapper" data-label="TH 1.3"></div>
+        <div class="input-wrapper" data-label="TH 1.4"></div>
+        <div class="input-wrapper" data-label="TH 1.5"></div>
+
+        <div style="margin-top: 15px; border-top: 2px dashed #ffb7b2; padding-top: 15px;">
+            <div class="input-wrapper" data-label="EX.1"></div>
+            <div class="input-wrapper" data-label="EX.2"></div>
+            <div class="input-wrapper" data-label="EX.3"></div>
+            <div class="input-wrapper" data-label="EX.4"></div>
+        </div>
+    </div>
+
+    <div class="card section-2">
+        <div class="section-header">SECTION 2</div>
+
+        <div class="gif-input-group">
+            <label class="label-text">🔗 ลิงก์ไฟล์ GIF (Embed) 2</label>
+            <input type="text" class="url-input gif-url" placeholder="วางลิงก์รูปภาพหรือ GIF ที่นี่..." oninput="previewGif(this)">
+            <img class="gif-preview" src="" alt="GIF Preview">
+        </div>
+
+        <div class="input-wrapper" data-label="STRUCTURE 2"></div>
+        <div class="input-wrapper" data-label="EN 2"></div>
+
+        <div class="input-wrapper" data-label="TH 2.1"></div>
+        <div class="input-wrapper" data-label="TH 2.2"></div>
+        <div class="input-wrapper" data-label="TH 2.3"></div>
+        <div class="input-wrapper" data-label="TH 2.4"></div>
+        <div class="input-wrapper" data-label="TH 2.5"></div>
+
+        <div style="margin-top: 15px; border-top: 2px dashed #b5ead7; padding-top: 15px;">
+            <div class="input-wrapper" data-label="EX.1 (Sec 2)"></div>
+            <div class="input-wrapper" data-label="EX.2 (Sec 2)"></div>
+            <div class="input-wrapper" data-label="EX.3 (Sec 2)"></div>
+            <div class="input-wrapper" data-label="EX.4 (Sec 2)"></div>
+        </div>
+    </div>
+
+    <div class="card section-3">
+        <div class="section-header">SECTION 3</div>
+
+        <div class="gif-input-group">
+            <label class="label-text">🔗 ลิงก์ไฟล์ GIF (Embed) 3</label>
+            <input type="text" class="url-input gif-url" placeholder="วางลิงก์รูปภาพหรือ GIF ที่นี่..." oninput="previewGif(this)">
+            <img class="gif-preview" src="" alt="GIF Preview">
+        </div>
+
+        <div class="input-wrapper" data-label="STRUCTURE 3"></div>
+        <div class="input-wrapper" data-label="MEANING 3"></div>
+        <div class="input-wrapper" data-label="EN 3"></div>
+
+        <div class="input-wrapper" data-label="TH 3.1"></div>
+        <div class="input-wrapper" data-label="TH 3.2"></div>
+        <div class="input-wrapper" data-label="TH 3.3"></div>
+        <div class="input-wrapper" data-label="TH 3.4"></div>
+        <div class="input-wrapper" data-label="TH 3.5"></div>
+
+        <div style="margin-top: 15px; border-top: 2px dashed #c7ceea; padding-top: 15px;">
+            <div class="input-wrapper" data-label="EX.1 (Sec 3)"></div>
+            <div class="input-wrapper" data-label="EX.2 (Sec 3)"></div>
+            <div class="input-wrapper" data-label="EX.3 (Sec 3)"></div>
+            <div class="input-wrapper" data-label="EX.4 (Sec 3)"></div>
+        </div>
+    </div>
+
+    <div class="card section-4">
+        <div class="section-header">SECTION 4</div>
+
+        <div class="gif-input-group">
+            <label class="label-text">🔗 ลิงก์ไฟล์ GIF (Embed) 4</label>
+            <input type="text" class="url-input gif-url" placeholder="วางลิงก์รูปภาพหรือ GIF ที่นี่..." oninput="previewGif(this)">
+            <img class="gif-preview" src="" alt="GIF Preview">
+        </div>
+
+        <div class="input-wrapper" data-label="STRUCTURE 4"></div>
+        <div class="input-wrapper" data-label="EN 4"></div>
+
+        <div class="input-wrapper" data-label="TH 4.1"></div>
+        <div class="input-wrapper" data-label="TH 4.2"></div>
+        <div class="input-wrapper" data-label="TH 4.3"></div>
+        <div class="input-wrapper" data-label="TH 4.4"></div>
+        <div class="input-wrapper" data-label="TH 4.5"></div>
+    </div>
+
+    <div class="card" style="border-color: #ddd;">
+        <div class="section-header" style="background:#ddd; color:#555;">EXTRA INFO</div>
+        <div class="input-wrapper" data-label="GRAMMAR"></div>
+        <div class="input-wrapper" data-label="DERIVE WORDS"></div>
+        <div class="input-wrapper" data-label="WORD FAMILY"></div>
+        <div class="input-wrapper" data-label="SYN/OP"></div>
+        <div class="input-wrapper" data-label="SYNTAX"></div>
+        <div class="input-wrapper" data-label="FYI"></div>
+    </div>
+
+    <button class="btn-save" onclick="saveData()">✨ บันทึกข้อมูล (Save) ✨</button>
+
+    <div id="output"></div>
+</div>
+
+<script>
+    // 1. Script สร้าง Toolbar และ Editor โดยอัตโนมัติ
+    document.addEventListener("DOMContentLoaded", function() {
+        const wrappers = document.querySelectorAll('.input-wrapper');
+        
+        wrappers.forEach(wrapper => {
+            const label = wrapper.getAttribute('data-label');
+            const uniqueId = 'editor-' + Math.random().toString(36).substr(2, 9);
+
+            wrapper.innerHTML = `
+                <label class="label-text">${label}</label>
+                <div class="toolbar">
+                    <button class="tool-btn" onclick="formatDoc('bold', null)" title="Bold"><i class="fas fa-bold"></i></button>
+                    <button class="tool-btn" onclick="formatDoc('backColor', 'yellow')" title="Highlight"><i class="fas fa-highlighter" style="color:#ffd700;"></i></button>
+                    <div style="position:relative; display:inline-block;">
+                        <button class="tool-btn" title="Text Color"><i class="fas fa-palette" style="color:#ff6b6b;"></i></button>
+                        <input type="color" onchange="formatDoc('foreColor', this.value)" style="position:absolute; top:0; left:0; opacity:0; width:100%; height:100%;">
+                    </div>
+                </div>
+                <div class="editor-box" contenteditable="true" id="${uniqueId}"></div>
+            `;
+        });
+    });
+
+    // 2. ฟังก์ชันจัดรูปแบบข้อความ (Bold, Color, Highlight)
+    function formatDoc(cmd, value) {
+        document.execCommand(cmd, false, value);
+    }
+
+    // 3. ฟังก์ชัน Preview GIF
+    function previewGif(input) {
+        const img = input.nextElementSibling;
+        if (input.value) {
+            img.src = input.value;
+            img.style.display = 'block';
+        } else {
+            img.style.display = 'none';
+        }
+    }
+
+    // 4. ฟังก์ชันบันทึกข้อมูล (Save)
+    function saveData() {
+        const mainTitle = document.getElementById('main-title').value;
+        const wrappers = document.querySelectorAll('.input-wrapper');
+        const gifInputs = document.querySelectorAll('.gif-url');
+        
+        let html = `
+            <div class="output-card">
+                <h2 style="text-align:center; color:#ff9aa2; border-bottom:2px dashed #eee; padding-bottom:10px;">${mainTitle || 'Vocabulary'}</h2>
+        `;
+
+        // Loop เก็บข้อมูลทุกช่อง
+        let gifIndex = 0;
+        
+        // เราจะวนลูปตาม Section เพื่อใส่ GIF ให้ถูกที่
+        // แต่เพื่อความง่าย เราจะดึงข้อมูลทีละส่วนแล้วประกอบร่าง
+
+        // Helper function to get content
+        const getContent = (label) => {
+            const el = document.querySelector(`.input-wrapper[data-label="${label}"] .editor-box`);
+            return el && el.innerHTML.trim() !== "" ? el.innerHTML : null;
+        }
+
+        // Helper to render GIF
+        const renderGif = (index) => {
+            const url = gifInputs[index].value;
+            if(url) return `<div style="text-align:center; margin:15px 0;"><img src="${url}" style="max-width:100%; border-radius:10px;"></div>`;
+            return '';
+        }
+
+        // --- Render Logic ---
+        // Section 1
+        html += `<h3 style="background:#ffb7b2; color:white; padding:5px 15px; border-radius:20px; display:inline-block;">Section 1</h3>`;
+        html += renderGif(0);
+        
+        const list1 = ['EN 1', 'TH 1.1', 'TH 1.2', 'TH 1.3', 'TH 1.4', 'TH 1.5', 'EX.1', 'EX.2', 'EX.3', 'EX.4'];
+        list1.forEach(lbl => {
+            const content = getContent(lbl);
+            if(content) html += `<div class="output-row"><span class="tag">${lbl}:</span> ${content}</div>`;
+        });
+        html += `<hr style="border:1px dashed #eee; margin:20px 0;">`;
+
+        // Section 2
+        html += `<h3 style="background:#b5ead7; color:white; padding:5px 15px; border-radius:20px; display:inline-block;">Section 2</h3>`;
+        html += renderGif(1);
+        
+        const list2 = ['STRUCTURE 2', 'EN 2', 'TH 2.1', 'TH 2.2', 'TH 2.3', 'TH 2.4', 'TH 2.5', 'EX.1 (Sec 2)', 'EX.2 (Sec 2)', 'EX.3 (Sec 2)', 'EX.4 (Sec 2)'];
+        list2.forEach(lbl => {
+            const content = getContent(lbl);
+            if(content) html += `<div class="output-row"><span class="tag">${lbl.replace(' (Sec 2)', '')}:</span> ${content}</div>`;
+        });
+        html += `<hr style="border:1px dashed #eee; margin:20px 0;">`;
+
+        // Section 3
+        html += `<h3 style="background:#c7ceea; color:white; padding:5px 15px; border-radius:20px; display:inline-block;">Section 3</h3>`;
+        html += renderGif(2);
+
+        const list3 = ['STRUCTURE 3', 'MEANING 3', 'EN 3', 'TH 3.1', 'TH 3.2', 'TH 3.3', 'TH 3.4', 'TH 3.5', 'EX.1 (Sec 3)', 'EX.2 (Sec 3)', 'EX.3 (Sec 3)', 'EX.4 (Sec 3)'];
+        list3.forEach(lbl => {
+            const content = getContent(lbl);
+            if(content) html += `<div class="output-row"><span class="tag">${lbl.replace(' (Sec 3)', '')}:</span> ${content}</div>`;
+        });
+        html += `<hr style="border:1px dashed #eee; margin:20px 0;">`;
+
+        // Section 4
+        html += `<h3 style="background:#ff9aa2; color:white; padding:5px 15px; border-radius:20px; display:inline-block;">Section 4</h3>`;
+        html += renderGif(3);
+
+        const list4 = ['STRUCTURE 4', 'EN 4', 'TH 4.1', 'TH 4.2', 'TH 4.3', 'TH 4.4', 'TH 4.5'];
+        list4.forEach(lbl => {
+            const content = getContent(lbl);
+            if(content) html += `<div class="output-row"><span class="tag">${lbl}:</span> ${content}</div>`;
+        });
+        html += `<hr style="border:1px dashed #eee; margin:20px 0;">`;
+
+        // Footer
+        html += `<div style="background:#f9f9f9; padding:15px; border-radius:15px;">`;
+        const listFooter = ['GRAMMAR', 'DERIVE WORDS', 'WORD FAMILY', 'SYN/OP', 'SYNTAX', 'FYI'];
+        listFooter.forEach(lbl => {
+            const content = getContent(lbl);
+            if(content) html += `<div class="output-row"><span class="tag" style="color:#888;">${lbl}:</span> ${content}</div>`;
+        });
+        html += `</div></div>`;
+
+        document.getElementById('output').innerHTML = html;
+        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    }
+</script>
+
+</body>
+</html>
